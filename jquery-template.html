@@ -1,0 +1,62 @@
+<!--
+// +----------------------------------------------------------------------
+// | jquery-template
+// +----------------------------------------------------------------------
+// | Author: 2851986856@qq.com
+// +----------------------------------------------------------------------
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jquery template</title>
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+</head>
+<body>
+jQuery 模板渲染
+<button class="btn btn-primary" id="render">渲染数据</button>
+<div class="part"></div>
+<!-- 下拉加载模板 -->
+<script id="tmpl" type="text/x-handlebars-template">
+    {{each data as value }}
+    <div class="group">
+        <div class="list clearfix">
+            <div class="info sg-group">
+                <div class="clearfix group-div">
+                    <div class="name fl">{{value.contact_name}} </div>
+                    {{each value.work_type as wt }}
+                    <div class="fl sg-group-build"><span>{{wt}}</span></div>
+                    {{/each}}
+                </div>
+                <div class="manager">{{value.contact_tel}}</div>
+                <div class="phone">最新工地：
+                    {{ if value.build_address}}
+                    {{value.build_address}}
+                    {{ else }}
+                    ——
+                    {{/if}}
+                </div>
+            </div>
+            <div class="clearfix sg-workspace-data">
+                {{ if value.build_count>0}}
+                <a href="/shigong" class="l">{{value.build_count}}个工地进行中</a>
+                {{ else }}
+                <span>空闲中</span>
+                {{/if}}
+                <a href="/shigong/" class="l r"> 历史工地个数：{{value.count}}个>>></a>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</script>
+<script type="text/javascript" src="assets/js/jquery1.11.3.min.js"></script>
+<script type="text/javascript" src="assets/js/template.js"></script>
+<script type="text/javascript" src="assets/js/data-for-template.js"></script>
+<script>
+    $("#render").on('click', function () {
+        var tplStr = template('tmpl', data);
+        $('.part').append(tplStr);
+    })
+</script>
+</body>
+</html>
