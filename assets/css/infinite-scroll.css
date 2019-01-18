@@ -1,0 +1,57 @@
+.lfsq_box {
+    width: 260px;
+    border:1px solid #f0f0f0;
+    padding: 0 16px 20px;
+    padding-bottom: 3px;
+    box-sizing: border-box;
+    margin: 30px auto;
+}
+.lfsq_box .title {
+    font-size: 18px;
+    color: #333;
+    background: #fff;
+    height: 58px;
+    line-height: 58px;
+    border-bottom: 1px solid #e6e6e6;
+    font-weight: bold;
+}
+.lfsq_box .content {
+    margin: 0;
+    width: 226px;
+    height: 225px;
+    overflow: hidden;
+}
+.lfsq_box .content ul {
+    width: 226px;
+}
+.lfsq_box li {
+    width: 100%;
+    height: 44px;
+    line-height: 44px;
+    color: #666;
+    border-bottom: 1px solid #E8E8E8;
+    text-align: left;
+    float: none;
+    vertical-align: top;
+}
+.lfsq_box li {
+    width: 100%;
+    height: 44px;
+    line-height: 44px;
+    color: #666;
+    border-bottom: 1px dashed #E8E8E8;
+    text-align: left;
+    float: none;
+    font-size: 14px;
+    vertical-align: top;
+}
+.lfsq_box li:last-child {
+    border-bottom: none;
+}
+.lfsq_box li>span {
+    color: #fb8920;
+    margin: 0 5px;
+}
+.lfsq_box li>a:hover, .lfsq_box li>a:focus {
+    color: #dc4146;
+}

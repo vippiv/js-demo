@@ -1,0 +1,81 @@
+<!--
+// +----------------------------------------------------------------------
+// | infinite-scroll 无缝循环滚动，兼容到IE8
+// +----------------------------------------------------------------------
+// | Author: 470211273@qq.com
+// +----------------------------------------------------------------------
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>无缝循环滚动</title>
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/infinite-scroll.css">
+</head>
+<body>
+<div class="lfsq_box homeowner-order-container">
+    <a class="next"></a><a class="prev"></a>
+    <div class="title">最新申请的服务名单</div>
+    <div class="content homeowner-scroll box">
+        <ul class="homeowner-order list">
+            <li>盐城 王**女士 <span>申请服务</span> 10秒前</li>
+            <li>苏州 李**女士 <span>申请服务</span> 12秒前</li>
+            <li>芜湖 张**先生 <span>申请服务</span> 13秒前</li>
+            <li>杭州 刘**先生 <span>申请服务</span> 15秒前</li>
+            <li>上海 陈**先生 <span>申请服务</span> 16秒前</li>
+            <li>漯河 杨**女士 <span>申请服务</span> 17秒前</li>
+            <li>信阳 黄**女士 <span>申请服务</span> 18秒前</li>
+            <li>贵阳 赵**女士 <span>申请服务</span> 20秒前</li>
+            <li>南宁 周**女士 <span>申请服务</span> 22秒前</li>
+            <li>嘉兴 吴**女士 <span>申请服务</span> 24秒前</li>
+            <li>苏州 徐**先生 <span>申请服务</span> 1分钟前</li>
+            <li>杭州 孙**女士 <span>申请服务</span> 2分钟前</li>
+            <li>合肥 马**先生 <span>申请服务</span> 3分钟前</li>
+            <li>开封 胡**先生 <span>申请服务</span> 4分钟前</li>
+            <li>六安 朱**女士 <span>申请服务</span> 5分钟前</li>
+            <li>重庆 郭**女士 <span>申请服务</span> 6分钟前</li>
+            <li>成都 何**先生 <span>申请服务</span> 7分钟前</li>
+            <li>长沙 罗**女士 <span>申请服务</span> 8分钟前</li>
+            <li>长春 高**先生 <span>申请服务</span> 9分钟前</li>
+            <li>桂林 高**女士 <span>申请服务</span> 10分钟前</li>
+
+            <li>盐城 王**女士 <span>申请服务</span> 10秒前</li>
+            <li>苏州 李**女士 <span>申请服务</span> 12秒前</li>
+            <li>芜湖 张**先生 <span>申请服务</span> 13秒前</li>
+            <li>杭州 刘**先生 <span>申请服务</span> 15秒前</li>
+            <li>上海 陈**先生 <span>申请服务</span> 16秒前</li>
+            <li>漯河 杨**女士 <span>申请服务</span> 17秒前</li>
+            <li>信阳 黄**女士 <span>申请服务</span> 18秒前</li>
+            <li>贵阳 赵**女士 <span>申请服务</span> 20秒前</li>
+            <li>南宁 周**女士 <span>申请服务</span> 22秒前</li>
+            <li>嘉兴 吴**女士 <span>申请服务</span> 24秒前</li>
+            <li>苏州 徐**先生 <span>申请服务</span> 1分钟前</li>
+            <li>杭州 孙**女士 <span>申请服务</span> 2分钟前</li>
+            <li>合肥 马**先生 <span>申请服务</span> 3分钟前</li>
+            <li>开封 胡**先生 <span>申请服务</span> 4分钟前</li>
+            <li>六安 朱**女士 <span>申请服务</span> 5分钟前</li>
+            <li>重庆 郭**女士 <span>申请服务</span> 6分钟前</li>
+            <li>成都 何**先生 <span>申请服务</span> 7分钟前</li>
+            <li>长沙 罗**女士 <span>申请服务</span> 8分钟前</li>
+            <li>长春 高**先生 <span>申请服务</span> 9分钟前</li>
+            <li>桂林 高**女士 <span>申请服务</span> 10分钟前</li>
+        </ul>
+    </div>
+</div>
+<script type="text/javascript" src="assets/js/jquery1.11.3.min.js"></script>
+<script type="text/javascript" src="assets/js/jquery.cxscroll.min.js"></script>
+<script>
+    // 申请服务滚动
+    !function($) {
+        $('.homeowner-order-container').cxScroll({
+            direction: 'bottom',
+            time : 2000,
+            step:1
+        });
+    }(jQuery)
+
+</script>
+</body>
+</html>
