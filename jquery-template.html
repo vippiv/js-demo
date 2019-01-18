@@ -2,7 +2,7 @@
 // +----------------------------------------------------------------------
 // | jquery-template
 // +----------------------------------------------------------------------
-// | Author: 2851986856@qq.com
+// | Author: 470211273@qq.com
 // +----------------------------------------------------------------------
 -->
 <!DOCTYPE html>
@@ -11,52 +11,84 @@
     <meta charset="UTF-8">
     <title>jquery template</title>
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <style>
+        body{
+            padding: 0 10px;
+        }
+        .part, .box{
+            float: left;
+            padding: 10px;
+            width: 360px;
+            border: 1px solid #CCC;
+            margin-right: 10px;
+        }
+        .group{
+            border-bottom: 1px solid #CCC;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+        }
+    </style>
 </head>
 <body>
-jQuery 模板渲染
-<button class="btn btn-primary" id="render">渲染数据</button>
+<h3>jQuery 模板渲染</h3>
 <div class="part"></div>
-<!-- 下拉加载模板 -->
+<div class="box"></div>
+<!-- 模板 -->
 <script id="tmpl" type="text/x-handlebars-template">
-    {{each data as value }}
+    {{each data as value index }}
     <div class="group">
+        <p>索引：{{index}}</p>
         <div class="list clearfix">
             <div class="info sg-group">
                 <div class="clearfix group-div">
-                    <div class="name fl">{{value.contact_name}} </div>
+                    <div class="name fl">姓名：{{value.contact_name}} </div>
+                    <span>工种：</span>
                     {{each value.work_type as wt }}
-                    <div class="fl sg-group-build"><span>{{wt}}</span></div>
+                    <span> {{wt}}，</span>
                     {{/each}}
                 </div>
-                <div class="manager">{{value.contact_tel}}</div>
+                <div class="manager">电话：{{value.contact_tel}}</div>
                 <div class="phone">最新工地：
                     {{ if value.build_address}}
-                    {{value.build_address}}
+                        {{value.build_address}}
                     {{ else }}
-                    ——
+                        ——
                     {{/if}}
                 </div>
             </div>
             <div class="clearfix sg-workspace-data">
+                <span>当前状态：</span>
                 {{ if value.build_count>0}}
-                <a href="/shigong" class="l">{{value.build_count}}个工地进行中</a>
+                    {{value.build_count}}个工地进行中
                 {{ else }}
                 <span>空闲中</span>
                 {{/if}}
-                <a href="/shigong/" class="l r"> 历史工地个数：{{value.count}}个>>></a>
+                <div> 历史工地个数：{{value.count}}个</div>
             </div>
         </div>
     </div>
     {{/each}}
 </script>
+<script id="tmpl_two" type="text/x-handlebars-template">
+    <p>转义：{{value}}</p>
+    <p>不转义：{{#value}}</p>
+</script>
 <script type="text/javascript" src="assets/js/jquery1.11.3.min.js"></script>
 <script type="text/javascript" src="assets/js/template.js"></script>
 <script type="text/javascript" src="assets/js/data-for-template.js"></script>
 <script>
-    $("#render").on('click', function () {
-        var tplStr = template('tmpl', data);
-        $('.part').append(tplStr);
-    })
+    /**
+     * ps；
+     * 1、数据格式必须是对象，不能是数组，否则不报错也无效果，要显示哪个值在模板里就在大括号里写该值对应的key
+     * 2、如果核心数据是数组，必须包装成对象且key必须用作each关键字后面变量名，否则无效
+     *    如：key是dataA，循环写法必须是{{each dataA as value }}
+     */
+    var tplStr = template("tmpl", tempData);
+    $('.part').append(tplStr);
+
+    var tplStr_two = template("tmpl_two", tempData_two);
+    $('.box').append(tplStr_two);
+
 </script>
 </body>
 </html>
