@@ -10,37 +10,8 @@ new Vue({
     data: {
         page: 1,
         scroll: null,
-        stu_list: [
-            // {
-            //     name: "唐诗咏",
-            //     gender: "男",
-            //     age: 22
-            // },{
-            //     name: "宋洁涵",
-            //     gender: "女",
-            //     age: 21
-            // },{
-            //     name: "余庆长",
-            //     gender: "男",
-            //     age: 24
-            // },{
-            //     name: "冯诗云",
-            //     gender: "女",
-            //     age: 26
-            // },{
-            //     name: "宋杰",
-            //     gender: "男",
-            //     age: 20
-            // },{
-            //     name: "余彭年",
-            //     gender: "男",
-            //     age: 21
-            // },{
-            //     name: "唐明",
-            //     gender: "男",
-            //     age: 21
-            // }
-        ]
+        loadingText: "加载中...",
+        stu_list: []
     },
     created: function () {
         this.getStuList();
@@ -52,19 +23,25 @@ new Vue({
                 // 'page_current': vm.page
             }).then(function (res) {
                 vm.stu_list = vm.stu_list.concat(res.data.data.list);
+                vm.page++
                 vm.$nextTick(() => {
                     if (!vm.scroll) {
                         vm.scroll = new BScroll(vm.$refs.wrapper, {
                             click: true,
                             scrollY: true,
                             pullUpLoad: {
-                                threshold: -50 // 在上拉到超过底部 20px 时，触发 pullingUp 事件
+                                // 在上拉到超过底部 20px 时，触发 pullingUp 事件，上拉加载用负值，下拉刷新用正值
+                                threshold: -20
                             }
                         })
-                        vm.scroll.on('finishPullUp', () => {
+                        vm.scroll.on('pullingUp', () => {
                             // 下拉动作
+                            if(vm.page >= 5) {
+                                vm.loadingText = "到底了~"
+                                return
+                            }
                             vm.getStuList()
-                            this.scroll.finishPullUp()
+                            vm.scroll.finishPullUp()
                         })
                     } else {
                         vm.scroll.refresh()

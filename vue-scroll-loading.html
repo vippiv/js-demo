@@ -23,20 +23,27 @@
     <title>vue版滚动加载</title>
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/scroll-loading.css">
+    <style>
+        .loading-wrapper{
+            height: 3rem;
+            line-height: 3rem;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 <div class="fix_head">固定头部</div>
 <div class="wrap" id="app">
     <div class="mt2"></div>
-    <div class="wrapper" ref="wrapper" style="position: relative; height: 970px;">
+    <div class="wrapper" ref="wrapper" style="height: 600px;">
         <div class="stu_box" style="position: relative;">
             <div class="stu_item" v-for="item in stu_list">
                 <p><b>姓名：</b>{{item.name}}</p>
                 <p><b>性别：</b>{{item.gender}}</p>
                 <p><b>年龄：</b>{{item.age}}</p>
             </div>
+            <div class="loading-wrapper">{{loadingText}}</div>
         </div>
-        <div class="loading-wrapper">加载中...</div>
     </div>
     <div class="mb3"></div>
 </div>
