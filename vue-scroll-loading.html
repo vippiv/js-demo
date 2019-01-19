@@ -1,17 +1,51 @@
 <!--
 // +----------------------------------------------------------------------
-// | vue-scroll-loading
+// | vue版滚动加载
 // +----------------------------------------------------------------------
-// | Author: 2851986856@qq.com
+// | Author: 470211273@qq.com
 // +----------------------------------------------------------------------
 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="applicable-device" content="mobile" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="full-screen" content="yes" />
+    <meta name="browsermode" content="application" />
+    <meta name="x5-orientation" content="portrait" />
+    <meta name="x5-fullscreen" content="true" />
+    <meta name="x5-page-mode" content="app" />
+    <title>vue版滚动加载</title>
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/scroll-loading.css">
 </head>
 <body>
-$END$
+<div class="fix_head">固定头部</div>
+<div class="wrap" id="app">
+    <div class="mt2"></div>
+    <div class="wrapper" ref="wrapper" style="position: relative; height: 970px;">
+        <div class="stu_box" style="position: relative;">
+            <div class="stu_item" v-for="item in stu_list">
+                <p><b>姓名：</b>{{item.name}}</p>
+                <p><b>性别：</b>{{item.gender}}</p>
+                <p><b>年龄：</b>{{item.age}}</p>
+            </div>
+        </div>
+        <div class="loading-wrapper">加载中...</div>
+    </div>
+    <div class="mb3"></div>
+</div>
+<div class="fix_bottom">固定底部</div>
+<script type="text/javascript" src="assets/plugins/mock-min.js"></script>
+<script type="text/javascript" src="assets/js/mock-data.js"></script>
+<script type="text/javascript" src="assets/plugins/axios.min.js"></script>
+<script type="text/javascript" src="assets/plugins/vue.js"></script>
+<script type="text/javascript" src="assets/plugins/bscroll.min.js"></script>
+<script type="text/javascript" src="assets/js/vue-scroll-loading.js"></script>
 </body>
 </html>
