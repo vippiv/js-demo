@@ -1,0 +1,42 @@
+.fix_head {
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    height: 2rem;
+    line-height: 2rem;
+    background-color: #f5f5f5;
+    text-align: center;
+    z-index: 9999;
+    text-align: center;
+}
+.fix_bottom{
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    height: 2rem;
+    line-height: 2rem;
+    background-color: #f5f5f5;
+    text-align: center;
+    z-index: 9999;
+    text-align: center;
+}
+.wrap{
+    max-width: 640px;
+    margin: 0 auto;
+    position: relative;
+    height: 100%;
+}
+.mt2{
+    margin-top: 2rem;
+}
+.mb3{
+    margin-bottom: 3rem;
+}
+.stu_item{
+    padding: 5px 0;
+    border-bottom: 1px solid #F5F5F5;
+}
+.stu_item > p{
+    padding-left: 15px;
+    line-height: 1.8;
+}

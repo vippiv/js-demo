@@ -1,0 +1,103 @@
+<!--
+// +----------------------------------------------------------------------
+// | scroll-loading 滚动加载
+// +----------------------------------------------------------------------
+// | Author: 470211273@qq.com
+// +----------------------------------------------------------------------
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="applicable-device" content="mobile" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="full-screen" content="yes" />
+    <meta name="browsermode" content="application" />
+    <meta name="x5-orientation" content="portrait" />
+    <meta name="x5-fullscreen" content="true" />
+    <meta name="x5-page-mode" content="app" />
+    <title>滚动加载</title>
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/jquery-weui.min.css">
+    <link rel="stylesheet" href="assets/css/weui.min.css">
+    <link rel="stylesheet" href="assets/css/scroll-loading.css">
+</head>
+<body>
+<div class="fix_head">固定头部</div>
+<div class="wrap">
+    <div class="mt2"></div>
+    <div class="stu_box">
+        <div class="stu_item">
+            <p><b>姓名：</b>唐诗咏</p>
+            <p><b>性别：</b>男</p>
+            <p><b>年龄：</b>22</p>
+        </div>
+        <div class="stu_item">
+            <p><b>姓名：</b>宋洁涵</p>
+            <p><b>性别：</b>女</p>
+            <p><b>年龄：</b>21</p>
+        </div>
+        <div class="stu_item">
+            <p><b>姓名：</b>余庆长</p>
+            <p><b>性别：</b>男</p>
+            <p><b>年龄：</b>24</p>
+        </div>
+        <div class="stu_item">
+            <p><b>姓名：</b>冯诗云</p>
+            <p><b>性别：</b>女</p>
+            <p><b>年龄：</b>26</p>
+        </div>
+        <div class="stu_item">
+            <p><b>姓名：</b>宋杰</p>
+            <p><b>性别：</b>男</p>
+            <p><b>年龄：</b>20</p>
+        </div>
+        <div class="stu_item">
+            <p><b>姓名：</b>余彭年</p>
+            <p><b>性别：</b>男</p>
+            <p><b>年龄：</b>21</p>
+        </div>
+        <div class="stu_item">
+            <p><b>姓名：</b>唐明</p>
+            <p><b>性别：</b>男</p>
+            <p><b>年龄：</b>20</p>
+        </div>
+    </div>
+    <div class="weui-loadmore" style="display: none;">
+        <i class="weui-loading"></i>
+        <span class="weui-loadmore__tips" data-id="2">正在加载</span>
+    </div>
+    <div class="mb3"></div>
+</div>
+<div class="fix_bottom">固定底部</div>
+
+<script id="tmpl" type="text/x-handlebars-template">
+    {{each list as value }}
+        <div class="stu_item">
+            <p><b>姓名：</b>{{value.name}}</p>
+            <p><b>性别：</b>{{value.gender}}</p>
+            <p><b>年龄：</b>{{value.age}}</p>
+        </div>
+    {{/each}}
+</script>
+<script type="text/javascript" src="assets/js/jquery1.11.3.min.js"></script>
+<script type="text/javascript" src="assets/js/template.js"></script>
+<script type="text/javascript" src="assets/js/jquery-weui.min.js"></script>
+<script type="text/javascript" src="assets/plugins/mock-min.js"></script>
+<script type="text/javascript" src="assets/js/mock-data.js"></script>
+<script type="text/javascript" src="assets/js/scroll-loading.js"></script>
+<script>
+    // $.ajax({
+    //     url: "http://zwl.com/stu_list",
+    //     dataType: "json",
+    //     success: function (res) {
+    //         console.log(res)
+    //     }
+    // })
+</script>
+</body>
+</html>
