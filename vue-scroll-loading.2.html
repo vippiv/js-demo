@@ -1,0 +1,58 @@
+<!--
+// +----------------------------------------------------------------------
+// | vue版滚动加载，基于vue-better-scroll
+// +----------------------------------------------------------------------
+// | Author: 470211273@qq.com
+// +----------------------------------------------------------------------
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="applicable-device" content="mobile" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="full-screen" content="yes" />
+    <meta name="browsermode" content="application" />
+    <meta name="x5-orientation" content="portrait" />
+    <meta name="x5-fullscreen" content="true" />
+    <meta name="x5-page-mode" content="app" />
+    <title>vue版滚动加载</title>
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/scroll-loading.css">
+    <style>
+        .load-more-normal, .load-more-hide {
+            text-align: center;
+            height: 60px;
+            line-height: 60px;
+        }
+    </style>
+</head>
+<body>
+<div class="fix_head">固定头部</div>
+<div class="wrap" id="app">
+    <div class="mt2"></div>
+    <div class="stu_box" v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
+        <div class="stu_item" v-for="item in stu_list">
+            <p><b>姓名：</b>{{item.name}}</p>
+            <p><b>性别：</b>{{item.gender}}</p>
+            <p><b>年龄：</b>{{item.age}}</p>
+        </div>
+        <div :class="loadMoreHide ? 'load-more-hide' : 'load-more-normal'" v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
+            <span>{{loadingText}}</span>
+        </div>
+    </div>
+    <div class="mb3"></div>
+</div>
+<div class="fix_bottom">固定底部</div>
+<script type="text/javascript" src="assets/plugins/mock-min.js"></script>
+<script type="text/javascript" src="assets/js/mock-data.js"></script>
+<script type="text/javascript" src="assets/plugins/axios.min.js"></script>
+<script type="text/javascript" src="assets/plugins/vue.js"></script>
+<script type="text/javascript" src="assets/plugins/vue-infinite-scroll.js"></script>
+<script type="text/javascript" src="assets/js/vue-scroll-loading.2.js"></script>
+</body>
+</html>
