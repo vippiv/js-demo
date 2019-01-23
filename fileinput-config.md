@@ -1,4 +1,4 @@
-## fileinput 配置项
+## fileinput 配置项大全
 
 ### 属性
 |属性名 | 属性类型 | 描述说明 | 默认值 |
@@ -92,8 +92,6 @@
 | ajaxDeleteSettings |  |  | 对象 |
 | showAjaxErrorDetails |  |  | true |
 
-1. 所有配置项从fileinput.js第2563行开始，在$.fn.fileinput.defaults对象中
-
 ### 方法
 | 方法名 | 参数 | 描述 |
 | ------ | ------ | ------ |
@@ -108,3 +106,6 @@
 | fileclear | 点击浏览框右上角X 清空文件前响应事件 | $("#fileinput").on("fileclear",function(event, data, msg){ }); |
 | filecleared | 点击浏览框右上角X 清空文件后响应事件 | $("#fileinput").on("filecleared",function(event, data, msg){}); |
 | fileimageuploaded | 在预览框中图片已经完全加载完毕后回调的事件 |  |
+
+### ps
+1. 所有配置项从fileinput.js第2563行开始，在$.fn.fileinput.defaults对象中
