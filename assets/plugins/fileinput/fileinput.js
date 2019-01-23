@@ -33,8 +33,10 @@
 }(function ($) {
     "use strict";
 
+    // 定义本地配置对象
     $.fn.fileinputLocales = {};
 
+    // 定义一系列变量
     var isIE, isEdge, handler, previewCache, getNum, hasFileAPISupport, hasDragDropSupport, hasFileUploadSupport, addCss,
         STYLE_SETTING, OBJECT_PARAMS, DEFAULT_PREVIEW, defaultFileActionSettings, tMain1, tMain2, tPreview, tIcon, tClose,
         tCaption, tBtnDefault, tBtnLink, tBtnBrowse, tModal, tProgress, tFooter, tActions, tActionDelete, tActionUpload,
@@ -60,6 +62,7 @@
     isEdge = function () {
         return new RegExp('Edge\/[0-9]+', 'i').test(navigator.userAgent);
     };
+    // 封装事件监听方法
     handler = function ($el, event, callback, skipNS) {
         var ev = skipNS ? event : event + '.fileinput';
         $el.off(ev).on(ev, callback);
@@ -272,6 +275,7 @@
     DEFAULT_PREVIEW = '<div class="file-preview-other">\n' +
         '   <span class="{previewFileIconClass}">{previewFileIcon}</span>\n' +
         '</div>';
+    // 默认上传区域配置项，只要配置字体图标和类名
     defaultFileActionSettings = {
         removeIcon: '<i class="glyphicon glyphicon-trash text-danger"></i>',
         removeClass: 'btn btn-xs btn-default',
@@ -288,6 +292,7 @@
         indicatorErrorTitle: 'Upload Error',
         indicatorLoadingTitle: 'Uploading ...'
     };
+    // 定义一系列上传过程中的DOM模板
     tMain1 = '{preview}\n' +
         '<div class="kv-upload-progress hide"></div>\n' +
         '<div class="input-group {class}">\n' +
@@ -413,6 +418,7 @@
         '   </div>\n' +
         '   <div class="file-preview-other-footer">{footer}</div>\n' +
         '</div>';
+    // 定义布局模板配置对象，值就是上面定义的一系列模板
     defaultLayoutTemplates = {
         main1: tMain1,
         main2: tMain2,
@@ -431,6 +437,7 @@
         btnLink: tBtnLink,
         btnBrowse: tBtnBrowse
     };
+    // 定义预览模板
     defaultPreviewTemplates = {
         generic: tGeneric,
         html: tHtml,
@@ -442,7 +449,9 @@
         object: tObject,
         other: tOther
     };
+    // 定义预览类型
     defaultPreviewTypes = ['image', 'html', 'text', 'video', 'audio', 'flash', 'object'];
+    // 定义详细的预览参数，宽高
     defaultPreviewSettings = {
         image: {width: "auto", height: "160px"},
         html: {width: "213px", height: "160px"},
@@ -453,6 +462,7 @@
         object: {width: "160px", height: "160px"},
         other: {width: "160px", height: "160px"}
     };
+    // 检测对应文件扩展名
     defaultFileTypeSettings = {
         image: function (vType, vName) {
             return (vType !== undefined) ? vType.match('image.*') : vName.match(/\.(gif|png|jpe?g)$/i);
@@ -518,6 +528,7 @@
     };
     //noinspection JSUnresolvedVariable
     objUrl = window.URL || window.webkitURL;
+    // FileInput构造函数
     FileInput = function (element, options) {
         var self = this;
         self.$element = $(element);
@@ -535,8 +546,10 @@
         }
     };
 
+    // FileInput原型对象
     FileInput.prototype = {
         constructor: FileInput,
+        // 验证inputtype类型是不是file，不是则报异常
         validate: function () {
             var self = this, $exception;
             if (self.$element.attr('type') === 'file') {
@@ -549,6 +562,7 @@
             self.$element.after($exception);
             return false;
         },
+        // 初始化，一堆的配置参数
         init: function (options) {
             var self = this, $el = self.$element, t;
             $.each(options, function (key, value) {
@@ -630,6 +644,7 @@
                 self.disable();
             }
         },
+        // 解析异步错误
         parseError: function (jqXHR, errorThrown, fileName) {
             var self = this, errMsg = $.trim(errorThrown + ''),
                 dot = errMsg.slice(-1) === '.' ? '' : '.',
@@ -648,6 +663,7 @@
             self.cancelling = false;
             return fileName ? '<b>' + fileName + ': </b>' + errMsg : errMsg;
         },
+        // 手动触发事件，同时跳过file开头的自定义事件
         raise: function (event, params) {
             var self = this, e = $.Event(event);
             if (params !== undefined) {
@@ -684,6 +700,7 @@
             }
             return true;
         },
+        // 获取布局DOM模板
         getLayoutTemplate: function (t) {
             var self = this,
                 template = isSet(t, self.layoutTemplates) ? self.layoutTemplates[t] : defaultLayoutTemplates[t];
@@ -692,6 +709,7 @@
             }
             return replaceTags(template, self.customLayoutTags);
         },
+        // 获取预览模板
         getPreviewTemplate: function (t) {
             var self = this,
                 template = isSet(t, self.previewTemplates) ? self.previewTemplates[t] : defaultPreviewTemplates[t];
@@ -700,6 +718,7 @@
             }
             return replaceTags(template, self.customPreviewTags);
         },
+        // 解析文件预览相关图标
         parseFilePreviewIcon: function (content, fname) {
             var self = this, ext, icn = self.previewFileIcon;
             if (fname && fname.indexOf('.') > -1) {
@@ -721,6 +740,7 @@
             }
             return content;
         },
+        // 获取文件传输相关数据
         getOutData: function (jqXHR, responseData, filesData) {
             var self = this;
             jqXHR = jqXHR || {};
@@ -736,6 +756,7 @@
                 jqXHR: jqXHR
             };
         },
+        // 事件监听，用到上文封装的事件监听函数
         listen: function () {
             var self = this, $el = self.$element, $cap = self.$captionContainer, $btnFile = self.$btnFile,
                 $form = $el.closest('form'), $cont = self.$container;
@@ -775,6 +796,7 @@
                 }
             });
         },
+        // 判断是否要执行abort函数，file不存在或配置项minileCount<0又或者file数量大于minFileCount则执行abort函数
         submitForm: function () {
             var self = this, $el = self.$element, files = $el.get(0).files;
             if (files && self.minFileCount > 0 && self.getFileCount(files.length) < self.minFileCount) {
@@ -783,6 +805,7 @@
             }
             return !self.abort({});
         },
+        // 终止异步请求并报错
         abort: function (params) {
             var self = this, data;
             if (self.ajaxAborted && typeof self.ajaxAborted === "object" && self.ajaxAborted.message !== undefined) {
@@ -796,6 +819,7 @@
             }
             return false;
         },
+        // 显示报错信息
         noFilesError: function (params) {
             var self = this, label = self.minFileCount > 1 ? self.filePlural : self.fileSingle,
                 msg = self.msgFilesTooLess.replace('{n}', self.minFileCount).replace('{files}', label),
@@ -808,6 +832,7 @@
             self.clearFileInput();
             addCss(self.$container, 'has-error');
         },
+        // 显示上传进度
         setProgress: function (p, $el) {
             var self = this, pct = Math.min(p, 100),
                 template = pct < 100 ? self.progressTemplate : self.progressCompleteTemplate;
@@ -816,6 +841,7 @@
                 $el.html(template.replace(/\{percent}/g, pct));
             }
         },
+        // 加文件锁，通过触发filelock执行
         lock: function () {
             var self = this;
             self.resetErrors();
@@ -828,6 +854,7 @@
             }
             self.raise('filelock', [self.filestack, self.getExtraData()]);
         },
+        // 解锁，通过触发fileunlock执行
         unlock: function (reset) {
             var self = this;
             if (reset === undefined) {
@@ -845,6 +872,7 @@
             }
             self.raise('fileunlock', [self.filestack, self.getExtraData()]);
         },
+        // 重置文件堆，每一个文件都有一个单独的index，将index附加到DOM结构上然后清空filestack
         resetFileStack: function () {
             var self = this, i = 0, newstack = [], newnames = [];
             self.getThumbs().each(function () {
@@ -872,12 +900,14 @@
             self.filestack = newstack;
             self.filenames = newnames;
         },
+        // 解绑事件移除数据
         destroy: function () {
             var self = this, $cont = self.$container;
             $cont.find('.file-drop-zone').off();
             self.$element.insertBefore($cont).off('.fileinput').removeData();
             $cont.off().remove();
         },
+        // 刷新，先调动destroy方法再重新触发一次事件
         refresh: function (options) {
             var self = this, $el = self.$element;
             options = options ? $.extend(self.options, options) : self.options;
@@ -887,6 +917,7 @@
                 $el.trigger('change.fileinput');
             }
         },
+        // 初始化拖拽，利用原生drop，drag接口实现
         initDragDrop: function () {
             var self = this, $zone = self.$container.find('.file-drop-zone'),
                 allEvents = 'dragenter.fileinput dragover.fileinput drop.fileinput';
@@ -923,6 +954,7 @@
                 e.preventDefault();
             }, true);
         },
+        // 设置拖拽区域标题
         setFileDropZoneTitle: function () {
             var self = this, $zone = self.$container.find('.file-drop-zone');
             $zone.find('.' + self.dropZoneTitleClass).remove();
@@ -935,6 +967,7 @@
             self.$container.removeClass('file-input-new');
             addCss(self.$container, 'file-input-ajax-new');
         },
+        // 判断是否存在错误信息
         errorsExist: function () {
             var self = this, $err;
             if (self.$errorContainer.find('li').length) {
@@ -945,14 +978,17 @@
             $err.find('ul').remove();
             return $.trim($err.text()).length ? true : false;
         },
+        // 获取选中的msg
         getMsgSelected: function (n) {
             var self = this, strFiles = n === 1 ? self.fileSingle : self.filePlural;
             return self.msgSelected.replace('{n}', n).replace('{files}', strFiles);
         },
+        // 渲染进度缩略图
         renderThumbProgress: function () {
             return '<div class="file-thumb-progress hide">' + this.progressTemplate.replace(/\{percent}/g,
                     '0') + '</div>';
         },
+        // 渲染上传页脚也就是进度条那一部分
         renderFileFooter: function (caption, width) {
             var self = this, config = self.fileActionSettings, footer, out, template = self.getLayoutTemplate('footer');
             if (self.isUploadable) {
@@ -973,6 +1009,7 @@
             out = replaceTags(out, self.previewThumbTags);
             return out;
         },
+        // 渲染文件上传区域
         renderFileActions: function (showUpload, showDelete, disabled, url, key) {
             if (!showUpload && !showDelete) {
                 return '';
@@ -1003,6 +1040,7 @@
                 .replace(/\{upload}/g, btnUpload)
                 .replace(/\{other}/g, otherButtons);
         },
+        // 设置缩略图状态
         setThumbStatus: function ($thumb, status) {
             var self = this;
             if (!self.showPreview) {
@@ -1020,6 +1058,7 @@
             $indicator.attr('title', config[msg]);
             $thumb.addClass(css);
         },
+        // 清除预览
         clearPreview: function () {
             var self = this, $thumbs = !self.showUploadedThumbs ? self.$preview.find('.file-preview-frame') :
                 self.$preview.find('.file-preview-frame:not(.file-preview-success)');
@@ -1029,6 +1068,7 @@
             }
             self.validateDefaultPreview();
         },
+        // 初始化预览
         initPreview: function (isInit) {
             var self = this, cap = self.initialCaption || '', out;
             if (!previewCache.count(self.id)) {
@@ -1048,6 +1088,7 @@
                 self.$container.removeClass('file-input-new');
             }
         },
+        // 初始化预览删除功能
         initPreviewDeletes: function () {
             var self = this, deleteExtraData = self.deleteExtraData || {},
                 resetProgress = function () {
@@ -1132,6 +1173,7 @@
                 });
             });
         },
+        // 清除video，audio之类的音视频对象
         clearObjects: function ($el) {
             $el.find('video audio').each(function () {
                 this.pause();
@@ -1141,6 +1183,7 @@
                 $(this).remove();
             });
         },
+        // 移除DOM结构
         clearFileInput: function () {
             var self = this, $el = self.$element, $srcFrm, $tmpFrm, $tmpEl;
             if (isEmpty($el.val())) {
@@ -1167,6 +1210,7 @@
             }
             self.fileInputCleared = true;
         },
+        // 复位upload相关状态
         resetUpload: function () {
             var self = this;
             self.uploadCache = {content: [], config: [], tags: [], append: true};
@@ -1184,12 +1228,14 @@
             self.ajaxRequests = [];
             self.resetCanvas();
         },
+        // 复位Canvas相关状态
         resetCanvas: function () {
             var self = this;
             if (self.canvas && self.imageCanvasContext) {
                 self.imageCanvasContext.clearRect(0, 0, self.canvas.width, self.canvas.height);
             }
         },
+        // 取消缩略图祥光状态
         cancel: function () {
             var self = this, xhr = self.ajaxRequests, len = xhr.length, i;
             if (len > 0) {
@@ -1208,15 +1254,18 @@
                 self.unlock();
             });
         },
+        // 清除data
         cleanMemory: function ($thumb) {
             var data = $thumb.is('img') ? $thumb.attr('src') : $thumb.find('source').attr('src');
             /** @namespace objUrl.revokeObjectURL */
             objUrl.revokeObjectURL(data);
         },
+        // 判断是否初始化
         hasInitialPreview: function () {
             var self = this;
             return !self.overwriteInitial && previewCache.count(self.id);
         },
+        // clear相关状态
         clear: function () {
             var self = this, cap;
             self.$btnUpload.removeAttr('disabled');
@@ -1257,6 +1306,7 @@
             self.$captionContainer.focus();
             self.setFileDropZoneTitle();
         },
+        // 重置预览
         resetPreview: function () {
             var self = this, out, cap;
             if (previewCache.count(self.id)) {
@@ -1269,10 +1319,12 @@
                 self.initCaption();
             }
         },
+        // 清除默认预览
         clearDefaultPreview: function () {
             var self = this;
             self.$preview.find('.file-default-preview').remove();
         },
+        // 验证是否处于初始状态
         validateDefaultPreview: function () {
             var self = this;
             if (!self.showPreview || isEmpty(self.defaultPreviewContent)) {
@@ -1281,6 +1333,7 @@
             self.$preview.html('<div class="file-default-preview">' + self.defaultPreviewContent + '</div>');
             self.$container.removeClass('file-input-new');
         },
+        // 复位预览缩略图
         resetPreviewThumbs: function (isAjax) {
             var self = this, out;
             if (isAjax) {
@@ -1297,6 +1350,7 @@
                 self.clearPreview();
             }
         },
+        // 复位
         reset: function () {
             var self = this;
             self.resetPreview();
@@ -1310,6 +1364,7 @@
             self.clearStack();
             self.formdata = {};
         },
+        // 禁用相关状态
         disable: function () {
             var self = this;
             self.isDisabled = true;
@@ -1321,6 +1376,7 @@
                 true);
             self.initDragDrop();
         },
+        // 启用相关状态
         enable: function () {
             var self = this;
             self.isDisabled = false;
@@ -1331,10 +1387,12 @@
                 ".btn-file, .fileinput-remove, .fileinput-upload, .file-preview-frame button").removeAttr("disabled");
             self.initDragDrop();
         },
+        // 获取缩略图
         getThumbs: function (css) {
             css = css || '';
             return this.$preview.find('.file-preview-frame:not(.file-preview-initial)' + css);
         },
+        // 获取额外数据，通过调用uploadExtraData方法执行
         getExtraData: function (previewId, index) {
             var self = this, data = self.uploadExtraData;
             if (typeof self.uploadExtraData === "function") {
@@ -1342,6 +1400,7 @@
             }
             return data;
         },
+        // 附加相关数据
         uploadExtra: function (previewId, index) {
             var self = this, data = self.getExtraData(previewId, index);
             if (data.length === 0) {
@@ -1351,6 +1410,7 @@
                 self.formdata.append(key, value);
             });
         },
+        // 设置异步状态，用于显示进度
         setAsyncUploadStatus: function (previewId, pct, total) {
             var self = this, sum = 0;
             self.setProgress(pct, $('#' + previewId).find('.file-thumb-progress'));
@@ -1361,6 +1421,7 @@
             self.setProgress(Math.ceil(sum / total));
 
         },
+        // 初始化异步状态，用于进度条
         initXhr: function (xhrobj, previewId, fileCount) {
             var self = this;
             if (xhrobj.upload) {
@@ -1379,6 +1440,7 @@
             }
             return xhrobj;
         },
+        // 异步提交数据
         ajaxSubmit: function (fnBefore, fnSuccess, fnComplete, fnError, previewId, index) {
             var self = this, settings;
             self.raise('filepreajax', [previewId, index]);
@@ -1402,6 +1464,7 @@
             }, self.ajaxSettings);
             self.ajaxRequests.push($.ajax(settings));
         },
+        // 初始化上传成功状态
         initUploadSuccess: function (out, $thumb, allFiles) {
             var self = this, append, data, index, $newThumb, content, config, tags, i;
             if (!self.showPreview || typeof out !== 'object' || $.isEmptyObject(out)) {
@@ -1439,6 +1502,7 @@
                 }
             }
         },
+        // 初始化成功缩略图
         initSuccessThumbs: function () {
             var self = this;
             if (!self.showPreview) {
@@ -1462,6 +1526,7 @@
                 });
             });
         },
+        // 检查异步传输是否完成
         checkAsyncComplete: function () {
             var self = this, previewId, i;
             for (i = 0; i < self.filestack.length; i++) {
@@ -1474,6 +1539,7 @@
             }
             return (self.uploadAsyncCount === self.uploadLog.length);
         },
+        // 单个上传
         uploadSingle: function (i, files, allFiles) {
             var self = this, total = self.getFileStack().length, formdata = new FormData(), outData,
                 previewId = self.previewInitId + "-" + i, $thumb, chkComplete, $btnUpload, $btnDelete,
@@ -1601,6 +1667,7 @@
             formdata.append('file_id', i);
             self.ajaxSubmit(fnBefore, fnSuccess, fnComplete, fnError, previewId, i);
         },
+        // 批量上传
         uploadBatch: function () {
             var self = this, files = self.filestack, total = files.length, params = {},
                 hasPostData = self.filestack.length > 0 || !$.isEmptyObject(self.uploadExtraData),
@@ -1713,6 +1780,7 @@
             });
             self.ajaxSubmit(fnBefore, fnSuccess, fnComplete, fnError);
         },
+        // 上传额外数据
         uploadExtraOnly: function () {
             var self = this, params = {}, fnBefore, fnSuccess, fnComplete, fnError;
             self.formdata = new FormData();
@@ -1754,6 +1822,7 @@
             };
             self.ajaxSubmit(fnBefore, fnSuccess, fnComplete, fnError);
         },
+        // 上传入口，调用上面定义的三个函数
         upload: function () {
             var self = this, totLen = self.getFileStack().length, params = {},
                 i, outData, len, hasExtraData = !$.isEmptyObject(self.getExtraData());
@@ -1797,6 +1866,7 @@
             }
             self.uploadBatch();
         },
+        // 初始化图片上传区域
         initFileActions: function () {
             var self = this;
             if (!self.showPreview) {
@@ -1850,14 +1920,17 @@
                 });
             });
         },
+        // 隐藏caption图标
         hideFileIcon: function () {
             if (this.overwriteInitial) {
                 this.$captionContainer.find('.kv-caption-icon').hide();
             }
         },
+        // 显示caption图标
         showFileIcon: function () {
             this.$captionContainer.find('.kv-caption-icon').show();
         },
+        // 添加错误信息
         addError: function (msg) {
             var self = this, $error = self.$errorContainer;
             if (msg && $error.length) {
@@ -1867,6 +1940,7 @@
                 });
             }
         },
+        // 清空重置错误信息
         resetErrors: function (fade) {
             var self = this, $error = self.$errorContainer;
             self.isError = false;
@@ -1878,6 +1952,7 @@
                 $error.hide();
             }
         },
+        // 显示文件夹类相关错误
         showFolderError: function (folders) {
             var self = this, $error = self.$errorContainer;
             if (!folders) {
@@ -1888,6 +1963,7 @@
             addCss(self.$container, 'has-error');
             self.raise('filefoldererror', [folders]);
         },
+        // 显示上传相关错误
         showUploadError: function (msg, params, event) {
             var self = this, $error = self.$errorContainer, ev = event || 'fileuploaderror',
                 e = params && params.id ? '<li data-file-id="' + params.id + '">' + msg + '</li>' : '<li>' + msg + '</li>';
@@ -1902,6 +1978,7 @@
             addCss(self.$container, 'has-error');
             return true;
         },
+        // 显示错误
         showError: function (msg, params, event) {
             var self = this, $error = self.$errorContainer, ev = event || 'fileerror';
             params = params || {};
@@ -1917,6 +1994,7 @@
             self.$btnUpload.attr('disabled', true);
             return true;
         },
+        // 调用显示错误入口
         errorHandler: function (evt, caption) {
             var self = this, err = evt.target.error;
             /** @namespace err.NOT_FOUND_ERR */
@@ -1934,6 +2012,7 @@
                 self.showError(self.msgFilePreviewError.replace('{name}', caption));
             }
         },
+        // 解析文件类型
         parseFileType: function (file) {
             var self = this, isValid, vType, cat, i;
             for (i = 0; i < defaultPreviewTypes.length; i += 1) {
@@ -1946,6 +2025,7 @@
             }
             return 'other';
         },
+        // 默认预览状态
         previewDefault: function (file, previewId, isDisabled) {
             if (!this.showPreview) {
                 return;
@@ -1977,6 +2057,7 @@
                 self.setThumbStatus($('#' + previewId), 'Error');
             }
         },
+        // 预览文件
         previewFile: function (i, file, theFile, previewId, data) {
             if (!this.showPreview) {
                 return;
@@ -2017,9 +2098,11 @@
                 self.previewDefault(file, previewId);
             }
         },
+        // 处理值，先字符串分割然后弹出第一个值在做替换
         slugDefault: function (text) {
             return isEmpty(text) ? '' : text.split(/(\\|\/)/g).pop().replace(/[^\w\u00C0-\u017F\-.\\\/ ]+/g, '');
         },
+        // 循环遍历files对象，更新一些值
         readFiles: function (files) {
             this.reader = new FileReader();
             var self = this, $el = self.$element, $preview = self.$preview, reader = self.reader,
@@ -2160,6 +2243,7 @@
             readFile(0);
             self.updateFileDetails(numFiles, false);
         },
+        // 更新file对象的向西至
         updateFileDetails: function (numFiles) {
             var self = this, $el = self.$element, fileStack = self.getFileStack(),
                 name = $el.val() || (fileStack.length && fileStack[0].name) || '', label = self.slug(name),
@@ -2182,6 +2266,7 @@
                 self.initPreviewDeletes();
             }
         },
+        // 验证最小文件数，返回布尔值
         validateMinCount: function () {
             var self = this, len = self.isUploadable ? self.getFileStack().length : self.$element.get(0).files.length;
             if (self.validateInitialCount && self.minFileCount > 0 && self.getFileCount(len - 1) < self.minFileCount) {
@@ -2190,6 +2275,7 @@
             }
             return true;
         },
+        // 获得文件对象的数量
         getFileCount: function (fileCount) {
             var self = this, addCount = 0;
             if (self.validateInitialCount && !self.overwriteInitial) {
@@ -2198,6 +2284,7 @@
             }
             return fileCount;
         },
+        // chagne事件，上传成功之后一系列更新
         change: function (e) {
             var self = this, $el = self.$element;
             if (!self.isUploadable && isEmpty($el.val()) && self.fileInputCleared) { // IE 11 fix
@@ -2285,36 +2372,43 @@
             }
             self.showFolderError(folders);
         },
+        // 获得filename（单个）
         getFileName: function (file) {
             return file && file.name ? this.slug(file.name) : undefined;
         },
+        // 获得所有filename（多个）
         getFileNames: function (skipNull) {
             var self = this;
             return self.filenames.filter(function (n) {
                 return (skipNull ? n !== undefined : n !== undefined && n !== null);
             });
         },
+        // 获得file堆
         getFileStack: function (skipNull) {
             var self = this;
             return self.filestack.filter(function (n) {
                 return (skipNull ? n !== undefined : n !== undefined && n !== null);
             });
         },
+        // 清空file堆
         clearStack: function () {
             var self = this;
             self.filestack = [];
             self.filenames = [];
         },
+        // 更新file堆
         updateStack: function (i, file) {
             var self = this;
             self.filestack[i] = file;
             self.filenames[i] = self.getFileName(file);
         },
+        // 入堆
         pushStack: function (file) {
             var self = this;
             self.filestack.push(file);
             self.filenames.push(self.getFileName(file));
         },
+        // 检测图片尺寸信息并显示相关错误信息及缩略图状态
         checkDimensions: function (i, chk, $img, $thumb, fname, type, params) {
             var self = this, msg, dim, tag = chk === 'Small' ? 'min' : 'max',
                 limit = self[tag + 'Image' + type], $imgEl, isValid;
@@ -2332,6 +2426,7 @@
             self.setThumbStatus($thumb, 'Error');
             self.updateStack(i, null);
         },
+        // 图片校验
         validateImage: function (i, previewId, fname, ftype) {
             var self = this, $preview = self.$preview, params, w1, w2,
                 $thumb = $preview.find("#" + previewId), $img = $thumb.find('img');
@@ -2359,6 +2454,7 @@
                 objUrl.revokeObjectURL($img.attr('src'));
             });
         },
+        // 校验所有图片
         validateAllImages: function () {
             var self = this, i, config, $img, $thumb, pid, ind, params = {}, errFunc;
             if (self.loadedImages.length !== self.totalImagesCount) {
@@ -2384,6 +2480,7 @@
             }
             self.raise('fileimagesresized');
         },
+        // 获取图片热size尺寸并更新相关状态
         getResizedImage: function (image, type, pid, ind) {
             var self = this, width = image.naturalWidth, height = image.naturalHeight, ratio = 1,
                 maxWidth = self.maxImageWidth || width, maxHeight = self.maxImageHeight || height,
@@ -2420,6 +2517,7 @@
                 return false;
             }
         },
+        // 初始化标题，要调用setCaption方法
         initCaption: function () {
             var self = this, cap = self.initialCaption || '';
             if (self.overwriteInitial || isEmpty(cap)) {
@@ -2429,6 +2527,7 @@
             self.setCaption(cap);
             return true;
         },
+        // 设置标题
         setCaption: function (content, isError) {
             var self = this, title, out;
             if (isError) {
@@ -2446,11 +2545,13 @@
             self.$caption.attr('title', title);
             self.$captionContainer.find('.file-caption-ellipsis').attr('title', title);
         },
+        // 初始化浏览按钮
         initBrowse: function ($container) {
             var self = this;
             self.$btnFile = $container.find('.btn-file');
             self.$btnFile.append(self.$element);
         },
+        // 创建container容器
         createContainer: function () {
             var self = this,
                 $container = $(document.createElement("div"))
@@ -2460,12 +2561,14 @@
             self.initBrowse($container);
             return $container;
         },
+        // 更新container容器
         refreshContainer: function () {
             var self = this, $container = self.$container;
             $container.before(self.$element);
             $container.html(self.renderMain());
             self.initBrowse($container);
         },
+        // 渲染主体
         renderMain: function () {
             var self = this, dropCss = (self.isUploadable && self.dropZoneEnabled) ? ' file-drop-zone' : 'file-drop-disabled',
                 close = !self.showClose ? '' : self.getLayoutTemplate('close'),
@@ -2483,6 +2586,7 @@
                 .replace(/\{cancel}/g, self.renderButton('cancel'))
                 .replace(/\{browse}/g, self.renderButton('browse'));
         },
+        // 渲染按钮
         renderButton: function (type) {
             var self = this, tmplt = self.getLayoutTemplate('btnDefault'), css = self[type + 'Class'],
                 title = self[type + 'Title'], icon = self[type + 'Icon'], label = self[type + 'Label'],
