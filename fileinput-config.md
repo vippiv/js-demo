@@ -92,6 +92,7 @@
 | ajaxDeleteSettings |  |  | 对象 |
 | showAjaxErrorDetails |  |  | true |
 
+1. 所有配置项从fileinput.js第2563行开始，在$.fn.fileinput.defaults对象中
 
 ### 方法
 | 方法名 | 参数 | 描述 |
