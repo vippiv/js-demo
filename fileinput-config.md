@@ -11,8 +11,11 @@
 | showUpload | Boolean | 是否显示上传按钮 | true |
 | showCancel | Boolean | 是否显示取消按钮 | true |
 | showClose | Boolean | 是否显示关闭按钮 | true |
+| showUploadedThumbs | Boolean |  | true |
+| mainClass |  |  |  |
 | autoReplace | Boolean | 是否自动替换当前图片，设置为true时，再次选择文件，会将当前的文件替换掉。 | false |
 | previewClass | String | 添加预览按钮的类属性 | ‘’ |
+| captionClass | String |  | ‘’ |
 | deleteUrl | String | 删除图片时的请求路径 | '' |
 | deleteExtraData | Object | 删除图片时额外传入的参数 |  |
 | allowedFileTypes | Object | 接收的文件后缀，如['jpg', 'gif', 'png'],不填将不限制上传文件后缀类型 | null |
@@ -34,6 +37,60 @@
 | dropZoneEnabled | boolean | 是否显示拖拽区域 | true |
 | dropZoneTitleClass | String | 拖拽区域类属性设置 | 'file-drop-zone-title' |
 | textEncoding | String | 编码设置 | 'UTF-8' |
+| mainTemplate |  |  |  |
+| initialCaption |  |  |  |
+| initialPreview |  |  |  |
+| initialPreviewDelimiter |  |  |  |
+| initialPreviewConfig |  |  |  |
+| initialPreviewThumbTags |  |  |  |
+| previewThumbTags |  |  |  |
+| initialPreviewShowDelete |  |  |  |
+| overwriteInitial |  |  |  |
+| layoutTemplates |  |  |  |
+| previewTemplates |  |  |  |
+| allowedPreviewTypes |  |  |  |
+| allowedPreviewMimeTypes |  |  |  |
+| allowedFileExtensions |  |  |  |
+| defaultPreviewContent |  |  |  |
+| customLayoutTags |  |  |  |
+| customPreviewTags |  |  |  |
+| previewSettings |  |  |  |
+| fileTypeSettings |  |  |  |
+| previewFileIcon |  |  |  |
+| previewFileIconClass |  |  |  |
+| previewFileIconSettings |  |  |  |
+| previewFileExtSettings |  |  |  |
+| buttonLabelClass |  |  |  |
+| browseIcon |  |  |  |
+| browseClass |  |  |  |
+| removeIcon |  |  |  |
+| removeClass |  |  |  |
+| cancelIcon |  |  |  |
+| cancelClass |  |  |  |
+| uploadIcon |  |  |  |
+| uploadClass |  |  |  |
+| resizeImage |  |  |  |
+| resizePreference |  |  |  |
+| resizeQuality |  |  |  |
+| msgValidationErrorClass |  |  |  |
+| msgValidationErrorIcon |  |  |  |
+| msgErrorClass |  |  |  |
+| progressThumbClass |  |  |  |
+| progressClass |  |  |  |
+| progressCompleteClass |  |  |  |
+| zoomIndicator |  |  |  |
+| elCaptionContainer |  |  |  |
+| elPreviewContainer |  |  |  |
+| elPreviewImage |  |  |  |
+| elPreviewStatus |  |  |  |
+| elErrorContainer |  |  |  |
+| errorCloseButton |  |  |  |
+| slugCallback |  |  | null |
+| fileActionSettings |  |  | 对象 |
+| otherActionButtons |  |  | '' |
+| ajaxSettings |  |  | 对象 |
+| ajaxDeleteSettings |  |  | 对象 |
+| showAjaxErrorDetails |  |  | true |
 
 
 ### 方法

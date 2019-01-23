@@ -76,7 +76,35 @@ $("#input-24").fileinput({
     ],
     overwriteInitial: false,
     maxFileSize: 100,
-    initialCaption: "The Moon and the Earth"
+    initialCaption: "The Moon and the Earth",
+    fileActionSettings: {
+        removeIcon: '<i class="fa fa-trash text-danger"></i>',
+        removeClass: 'btn btn-xs btn-default',
+        removeTitle: 'Remove file',
+        uploadIcon: '<i class="fa fa-upload text-info"></i>',
+        uploadClass: 'btn btn-xs btn-default',
+        uploadTitle: 'Upload file',
+        indicatorNew: '<i class="fa fa-hand-o-down text-warning"></i>',
+        indicatorSuccess: '<i class="fa fa-hand-spock-o text-success"></i>',
+        indicatorError: '<i class="fa fa-exclamation-triangle text-danger"></i>',
+        indicatorLoading: '<i class="fa fa-hand-o-up text-muted"></i>',
+        indicatorNewTitle: 'Not uploaded yet',
+        indicatorSuccessTitle: 'Uploaded',
+        indicatorErrorTitle: 'Upload Error',
+        indicatorLoadingTitle: 'Uploading ...'
+    },
+    previewFileIcon: '<i class="fa fa-file"></i>',
+    previewFileIconClass: 'file-icon-4x',
+    previewFileIconSettings: {},
+    previewFileExtSettings: {},
+    buttonLabelClass: 'hidden-xs',
+    browseIcon: '<i class="fa fa-folder-open"></i>',
+    browseClass: 'btn btn-primary',
+    removeIcon: '<i class="fa fa-trash"></i>',
+    removeClass: 'btn btn-default',
+    cancelIcon: '<i class="fa fa-ban"></i>',
+    cancelClass: 'btn btn-default',
+    uploadIcon: '<i class="fa fa-upload"></i>',
 });
 $("#file-0c").fileinput({
     uploadUrl: "", // 这里只能写字符串不能写变量
