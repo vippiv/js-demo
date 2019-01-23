@@ -1,0 +1,8 @@
+.add-link{overflow: hidden;}
+.do-some{overflow: hidden;margin-top: 10px;}
+.address-modal{width: 500px;height: 220px;position: fixed;margin: auto;left: 0;top: 0;right: 0;bottom: 0;background: #fff;border-radius: 6px;box-shadow: 0 0 15px 0px #ccc;z-index: 999;display: none;overflow: hidden;}
+.address-modal p{text-align: left;margin:10px 20px;}
+.address-modal div div.pull-left{margin-left:20px;}
+.address-modal div div.pull-right{margin-right:20px;}
+.add-address,.delete-address{cursor: pointer;}
+.file-preview-frame .textarea{width:174px;min-height: 100px;max-width:200px;border: 1px solid #ccc;text-align: left;}

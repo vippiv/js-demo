@@ -1,0 +1,80 @@
+<!--
+// +----------------------------------------------------------------------
+// | 文件上传插件fileinput
+// +----------------------------------------------------------------------
+// | Author: 470211273@qq.com
+// +----------------------------------------------------------------------
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文件上传-fileinput</title>
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/plugins/fileinput/fileinput.min.css">
+</head>
+<body>
+<div class="container kv-main">
+    <div class="page-header">
+        <h1>Bootstrap File Input Example</h1>
+        <h2 class="text-success">German Translation Demo</h2>
+    </div>
+    <div id="upload_license-component">
+        <div class="title">上传图片</div>
+        <input id="file-0c" type="file" class="filepic"/>
+        <input type="hidden" name="img" id="official_img" value=""/>
+    </div>
+    <br>
+    <form enctype="multipart/form-data">
+        <input id="file-0" class="file" type="file" multiple data-min-file-count="1">
+        <br>
+        <button type="submit" class="btn btn-primary">提交</button>
+        <button type="reset" class="btn btn-default">重置</button>
+    </form>
+    <br>
+    <form enctype="multipart/form-data">
+        <input id="file-0a" class="file" type="file" multiple data-min-file-count="3">
+        <br>
+        <div class="form-group">
+            <input id="file-0b" class="file" type="file">
+        </div>
+        <div class="form-group">
+            <input id="file-1" type="file" multiple class="file" data-overwrite-initial="false" data-min-file-count="2">
+        </div>
+        <div class="form-group">
+            <input id="file-2" type="file" class="file" readonly data-show-upload="false">
+        </div>
+        <div class="form-group">
+            <label>预览文件图标</label>
+            <input id="file-3" type="file" multiple=true>
+        </div>
+        <div class="form-group">
+            <input id="file-4" type="file" class="file" data-upload-url="#">
+        </div>
+        <div class="form-group">
+            <button class="btn btn-warning" type="button">禁用测试</button>
+            <button class="btn btn-info" type="reset">重置测试</button>
+            <button class="btn btn-primary">提交</button>
+            <button class="btn btn-default" type="reset">重置</button>
+        </div>
+        <div class="form-group">
+            <input type="file" class="file" id="test-upload" multiple>
+            <div id="errorBlock" class="help-block"></div>
+        </div>
+        <div class="form-group">
+            <input id="file-5" class="file" type="file" multiple data-preview-file-type="any" data-upload-url="#" data-preview-file-icon="">
+        </div>
+    </form>
+    <br>
+    <input id="input-24" type="file" multiple>
+</div>
+
+
+<script type="text/javascript" src="assets/js/jquery1.11.3.min.js"></script>
+<script type="text/javascript" src="assets/plugins/fileinput/fileinput.js"></script>
+<script type="text/javascript" src="assets/plugins/fileinput/fileinput_locale_zh.js"></script>
+<script type="text/javascript" src="assets/js/fileinput-instant.js"></script>
+</body>
+</html>
