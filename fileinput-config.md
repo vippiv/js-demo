@@ -104,6 +104,7 @@
 | fileuploaded | 上传成功后处理方法 | $("#fileinput").on("fileuploaded", function(event, data, previewId, index) {}); |
 | filereset |  |  |
 | fileclear | 点击浏览框右上角X 清空文件前响应事件 | $("#fileinput").on("fileclear",function(event, data, msg){ }); |
+| filesuccessremove | 删除单张图片事件 | $("#fileinput").on("filesuccessremove",function(event, data, msg){ }); |
 | filecleared | 点击浏览框右上角X 清空文件后响应事件 | $("#fileinput").on("filecleared",function(event, data, msg){}); |
 | fileimageuploaded | 在预览框中图片已经完全加载完毕后回调的事件 |  |
 
