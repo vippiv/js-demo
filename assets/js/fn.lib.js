@@ -462,9 +462,14 @@ function setEndOfContenteditable(contentEditableElement){
  * @param name string
  * @param value string
  * @param maxAge string 单位分钟
+ * @param path string cookie路径，默认为当前路径
  */
-function setCookie( name , value , maxAge ){
-    document.cookie = name + "=" + value + ";max-age=" + (maxAge * 60);
+function setCookie( name , value , maxAge, path ){
+    if(path) {
+        document.cookie = name + "=" + value + ";max-age=" + (maxAge * 60)+ ";path=" + path;
+    }else{
+        document.cookie = name + "=" + value + ";max-age=" + (maxAge * 60);
+    }
 }
 
 /**
