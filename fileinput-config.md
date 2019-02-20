@@ -107,6 +107,30 @@
 | filesuccessremove | 删除单张图片事件 | $("#fileinput").on("filesuccessremove",function(event, data, msg){ }); |
 | filecleared | 点击浏览框右上角X 清空文件后响应事件 | $("#fileinput").on("filecleared",function(event, data, msg){}); |
 | fileimageuploaded | 在预览框中图片已经完全加载完毕后回调的事件 |  |
+| filebatchuploadcomplete |  |  |
+| filefoldererror |  |  |
+| fileuploaderror |  |  |
+| filedeleteerror |  |  |
+| filepredelete |  |  |
+| filedeleted |  |  |
+| filecustomerror |  |  |
+| fileunlock |  |  |
+| filedisabled |  |  |
+| fileenabled |  |  |
+| filepreajax |  |  |
+| filebatchpreupload |  |  |
+| filepreremove |  |  |
+| fileremoved |  |  |
+| fileloaded |  |  |
+| fileselect |  |  |
+| fileselectnone |  |  |
+| fileimageloaded |  |  |
+| fileimageresizeerror |  |  |
+| fileimagesresized |  |  |
+| dragenter.fileinput |  |  |
+| dragover.fileinput |  |  |
+| drop.fileinput |  |  |
+
 
 ### ps
 1. 所有配置项从fileinput.js第2563行开始，在$.fn.fileinput.defaults对象中

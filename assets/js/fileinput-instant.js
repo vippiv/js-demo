@@ -19,6 +19,9 @@ $("#file-1").fileinput({
     slugCallback: function(filename) {
         return filename.replace('(', '_').replace(']', '_');
     }
+}).on("filebatchselected", function (file) {
+    // 虽然可以通过属性限制选择文件个数，但分批选择就可以绕过这个限制，通过监听filebatchselected方法可以实现限制
+    console.log('文件选择后执行，可以用来限制允许上传的个数')
 });
 /*
 $(".file").on('fileselect', function(event, n, l) {
