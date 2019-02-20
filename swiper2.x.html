@@ -102,7 +102,7 @@
             pagination: '.pagination',
             loop:true,
             grabCursor: true, // 控制鼠标形状
-            paginationClickable: true,
+            paginationClickable: true, // 启用分页指示器点击事件
             mode: 'horizontal', // 索引位置需要在css中调整，值（horizontal/vertical）
             autoplay : 1000,
             autoplayDisableOnInteraction : false, // 用户操作swiper之后，是否禁止autoplay。默认为true：停止
@@ -137,6 +137,15 @@
             // loop: true, // 轮播嵌套的时候必须去掉这个，否则最后一个轮播的嵌套轮播异常
             onSlideChangeStart: function(swiper){
                 switchTab(swiper.activeLoopIndex);
+                // 下面这段代码用于解决loop属性不能使用的问题
+                if(swiper.activeLoopIndex == 3) {
+                    mySwiper.stopAutoplay();
+                    setTimeout(function () {
+                        $nav.eq(0).trigger("click")
+                        mySwiper.startAutoplay();
+                    }, 2000)
+
+                }
             }
         })
         $nav.on("click",function(){
@@ -155,8 +164,9 @@
 <script>
     $(function () {
         var mySwiper_jo = new Swiper('.jo',{
-            autoplay : 500,
+            autoplay : 1000,
             pagination: '.jo .pagination',
+            paginationClickable: true,
             onlyExternal: false, // 禁用鼠标拖拉
             loop: true,
             onSlideChangeStart: function(swiper){
@@ -164,8 +174,9 @@
             }
         })
         var mySwiper_zs = new Swiper('.zs',{
-            autoplay : 500,
+            autoplay : 1000,
             pagination: '.zs .pagination',
+            paginationClickable: true,
             onlyExternal: false, // 禁用鼠标拖拉
             loop: true,
             onSlideChangeStart: function(swiper){
@@ -173,8 +184,9 @@
             }
         })
         var mySwiper_rs = new Swiper('.rs',{
-            autoplay : 500,
+            autoplay : 1000,
             pagination: '.rs .pagination',
+            paginationClickable: true,
             onlyExternal: false, // 禁用鼠标拖拉
             loop: true,
             onSlideChangeStart: function(swiper){
@@ -182,8 +194,9 @@
             }
         })
         var mySwiper_xd = new Swiper('.xd',{
-            autoplay : 500,
+            autoplay : 1000,
             pagination: '.xd .pagination',
+            paginationClickable: true,
             onlyExternal: false, // 禁用鼠标拖拉
             loop: true,
             onSlideChangeStart: function(swiper){
@@ -192,8 +205,6 @@
         })
         function switchTab(index) {
             // console.log(index)
-            // $nav.removeClass('active')
-            // $nav.eq(index).addClass("active")
         }
     })
 </script>
