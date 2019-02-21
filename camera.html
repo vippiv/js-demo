@@ -1,0 +1,61 @@
+<!--
+// +----------------------------------------------------------------------
+// | camera
+// +----------------------------------------------------------------------
+// | Author: 470211273@qq.com
+// +----------------------------------------------------------------------
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="applicable-device" content="mobile">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="full-screen" content="yes">
+    <meta name="browsermode" content="application">
+    <meta name="x5-orientation" content="portrait">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="x5-page-mode" content="app">
+    <title>移动端调用摄像头及相册</title>
+</head>
+<body>
+<div class="container">
+    <h1 style="font-size: 18px;">移动端调用摄像头及相册</h1>
+    <div class="row">
+        <div class="col-xs-12">
+            <p>以下说明仅当做个记录：</p>
+            <p>安卓微信端需要加个capture="camera"属性才能调用相机，其他平台均不需要加</p>
+        </div>
+        <div class="col-xs-12">
+            <input id="camera" type="file" accept="image/*" multiple="">
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    /**
+     * 判断是不是微信浏览器
+     * @type {boolean}
+     */
+    var isWechat = function() {
+        var ua = navigator.userAgent.toLowerCase();
+        var isWeixin = ua.indexOf('micromessenger') != -1;
+        if (isWeixin) {
+            return true;
+        }else{
+            return false;
+        }
+    }()
+
+    if(isWechat && mobileSystem().toLowerCase() == "android"){
+        $("#camera").attr("capture", "camera");
+    }
+</script>
+</body>
+</html>

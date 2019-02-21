@@ -511,6 +511,44 @@ function GetQueryStringRegExp(name,url) {
 }
 
 /**
+ * 判断是Android还是iOS
+ * @returns {string}
+ */
+function mobileSystem() {
+    var u = navigator.userAgent;
+    var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+    var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+    if(isAndroid){
+        return "Android"
+    }else if(isiOS){
+        return "iOS"
+    }
+}
+
+/**
+ * 根据系统类型更改input框的属性
+ */
+function fixInputType(ele) {
+    if( mobileSystem().toLowerCase() == "ios" ){
+        $(ele).attr("type","tel");
+    }
+}
+
+/**
+ * 判断是不是微信浏览器
+ * @type {boolean}
+ */
+var isWechat = function() {
+    var ua = navigator.userAgent.toLowerCase();
+    var isWeixin = ua.indexOf('micromessenger') != -1;
+    if (isWeixin) {
+        return true;
+    }else{
+        return false;
+    }
+}()
+
+/**
  * 判断是否是闰年
  * @returns {boolean}
  */
