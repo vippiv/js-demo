@@ -1,0 +1,23 @@
+.inline-block{
+    display: inline-block;
+}
+.drop-page{
+    width: 500px;
+    display: inline-block;
+}
+.drop-page select{
+    width: 200px;
+    height: 220px;
+}
+.drop-page .switch-arrow{
+    height: 214px;
+    line-height: 102px;
+    width: 50px;
+    text-align: center;
+    vertical-align: top;
+    font-size: 18px;
+    font-weight: bold;
+}
+.drop-page .switch-arrow p{
+    cursor: pointer;
+}
