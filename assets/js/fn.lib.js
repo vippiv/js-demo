@@ -59,8 +59,8 @@ function checkPhoneNum(str){
 	if( !str ){
 		return;
 	}
-	var reg = new RegExp("^((13[0-9])|(14[5,7,8,9])|(15[0-3,5-9])|(17[0,1,3,5-8])|(18[0-9])|166|198|199|(147))\\d{8}$");
-	return reg.test(str);
+	var reg = new RegExp("^(13|14|15|16|17|18|19)[0-9]{9}$");
+    return reg.test(str);
 }
 
 /**
@@ -522,6 +522,8 @@ function mobileSystem() {
         return "Android"
     }else if(isiOS){
         return "iOS"
+    }else{
+        return ""
     }
 }
 
