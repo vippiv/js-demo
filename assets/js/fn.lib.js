@@ -63,6 +63,19 @@ function checkPhoneNum(str){
     return reg.test(str);
 }
 
+/*
+ * 验证是否存在特殊字符
+ * @param val
+ * @returns {boolean}
+ */
+function checkSpecialSymbal(val) {
+    var reg = new RegExp("^[\u4e00-\u9fa5a-zA-Z]+$");
+    if (!reg.test(val)) {
+        alert("请输入正确的姓名，只支持中文和英文 ^_^!");
+        return;
+    }
+}
+
 /**
  * 倒计时
  * @param sec 倒计时实现，如60s

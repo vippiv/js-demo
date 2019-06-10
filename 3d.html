@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>3D</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" href="assets/css/reset.css">
+	<link rel="stylesheet" href="assets/plugins/swiper-2.7.6/css/idangerous.swiper.css">
+	<style>
+		body, html {
+			min-width: 320px;
+			max-width: 750px;
+			background-color: #999;
+		}
+		header {
+			width: 100%;
+			height: 16.25rem;
+			/*background: url("http://download2.qcplay.com/web/sgzdz/Wap/guide2/images/banner.png") no-repeat;*/
+			background-size: 100% 100%;
+		}
+		header .swiper-container {
+			width: 95%;
+			padding-top: 0.5rem;
+		}
+		header .swiper-slide {
+			background-position: center;
+			background-size: 130% 120%;
+			width: 60%;
+			height: 15rem;
+		}
+		header .swiper-slide img {
+			display: block;
+			width: 100%;
+			height: 15rem;
+		}
+		header .swiper-button-next, .swiper-button-prev {
+			top: 5rem;
+			width: 10%;
+			height: 7rem;
+		}
+		header .swiper-button-next {
+			background: url("http://download2.qcplay.com/web/sgzdz/Wap/guide2/images/right.png") no-repeat 100% 2.5rem;
+		}
+		header .swiper-button-prev {
+			background: url("http://download2.qcplay.com/web/sgzdz/Wap/guide2/images/left.png") no-repeat 0 2.5rem;
+		}
+
+	</style>
+</head>
+<body>
+	<header>
+		<div class="swiper-container">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide">
+					<img src="http://download2.qcplay.com/web/sgzdz/Wap/guide2/images/banner_01.png" alt="图片加载失败" title="宣传图片">
+				</div>
+				<div class="swiper-slide">
+					<img src="http://download2.qcplay.com/web/sgzdz/Wap/guide2/images/banner_02.png" alt="图片加载失败" title="宣传图片">
+				</div>
+				<div class="swiper-slide">
+					<img src="http://download2.qcplay.com/web/sgzdz/Wap/guide2/images/banner_03.png" alt="图片加载失败" title="宣传图片">
+				</div>
+				<div class="swiper-slide">
+					<img src="http://download2.qcplay.com/web/sgzdz/Wap/guide2/images/banner_04.png" alt="图片加载失败" title="宣传图片">
+				</div>
+				<div class="swiper-slide">
+					<img src="http://download2.qcplay.com/web/sgzdz/Wap/guide2/images/banner_05.png" alt="图片加载失败" title="宣传图片">
+				</div>
+			</div>
+			<div class="swiper-button-next"></div>
+			<div class="swiper-button-prev"></div>
+		</div>
+	</header>
+    <script src="assets/js/jquery-2.1.4.min.js"></script>
+    <script src="assets/js/swiper.min.js"></script>
+	<script>
+		window.onload = function () {
+		    var swiper = new Swiper('.swiper-container', {
+		        loop: true,
+		        pagination: '.swiper-pagination',
+		        effect: 'coverflow',
+		        grabCursor: true,
+		        centeredSlides: true,
+		        nextButton: '.swiper-button-next',
+		        prevButton: '.swiper-button-prev',
+		        slidesPerView: 'auto',
+		        coverflow: {
+		            rotate: 0,
+		            stretch: 10,
+		            depth: 150,
+		            modifier: 3,
+		            slideShadows: true
+		        }
+		    });
+		}
+	</script>
+</body>
+</html>
