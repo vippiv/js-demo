@@ -564,6 +564,19 @@ var isWechat = function() {
 }()
 
 /**
+ * 检测字符串是否同时包含数字，字母，下划线
+ * @param str
+ * @returns {boolean}
+ */
+function checkStr(str) {
+  if(!str) {
+    return
+  }
+  var reg = /(?=.*[A-Za-z])(?=.*[\d])(?=.*_)/;
+  return reg.test(str)
+}
+
+/**
  * 判断是否是闰年
  * @returns {boolean}
  */
