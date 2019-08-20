@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>promise</title>
+    <style>
+        pre{ background-color: #0e467b; color: white; line-height: 2; font-size: 14px; width: 550px; }
+    </style>
+</head>
+<body>
+<p>promise链式调用，避免回调地狱，具体结果看控制台</p>
+<pre>
+    new Promise((resolve, reject) => {
+      requestnFn('一', {
+          status: 200,
+          data: {
+              id: 10
+          },
+          code: 1
+      }, resolve, reject)
+    }).then(res => {
+      console.log('第一次请求成功：')
+      console.log(res)
+      return new Promise((resolve, reject) => {
+          requestnFn('二', {
+              status: 200,
+              data: {
+                  id: 10,
+                  name: 'zwl',
+                  age: 20,
+                  gender: 'male'
+              },
+              code: 1
+          }, resolve, reject)
+      })
+    }).then(res => {
+      console.log('第二次请求成功：')
+      console.log(res)
+      return new Promise((resolve, reject) => {
+          requestnFn('三', {
+              status: 200,
+              data: {},
+              code: 1
+          }, resolve, reject)
+      })
+    }).then(res => {
+      console.log('第三次请求，这是请求结果')
+      console.log(res)
+    }).catch(res => {
+      console.log('请求失败')
+      console.log(res)
+    })
+
+    /**
+     * 请求函数封装
+     * @param time
+     * @param res
+     * @param resolve
+     * @param reject
+     */
+    function requestnFn(time, res, resolve, reject) {
+        setTimeout(() => {
+            console.log('第' + time + '次请求')
+            var randomNum = Math.random() * 10
+            if(randomNum > 5) {
+                resolve(res)
+            }else{
+                reject({
+                    status: 200,
+                    data: {
+                        info: '参数不能为空'
+                    },
+                    code: 0
+                })
+            }
+        }, 2000)
+    }
+</pre>
+<p>promise.all用法</p>
+<pre>
+    //切菜
+    function cutUp(){
+        console.log('开始切菜。');
+        var p = new Promise(function(resolve, reject){ //做一些异步操作
+            setTimeout(function(){
+                console.log('切菜完毕！');
+                resolve('切好的菜');
+            }, 1000);
+        });
+        return p;
+    }
+
+    //烧水
+    function boil(){
+        console.log('开始烧水。');
+        var p = new Promise(function(resolve, reject){ //做一些异步操作
+            setTimeout(function(){
+                console.log('烧水完毕！');
+                resolve('烧好的水');
+            }, 1000);
+        });
+        return p;
+    }
+
+    Promise.all([cutUp(), boil()]).then((result) => {
+        console.log('准备工作完毕');
+        console.log(result);
+    })
+</pre>
+<p>Promise.race() 类似于Promise.all() ，区别在于它有任意一个完成就算完成</p>
+<pre>
+    //切菜
+    function cutUp(){
+        console.log('开始切菜。');
+        var p = new Promise(function(resolve, reject){ //做一些异步操作
+            setTimeout(function(){
+                console.log('切菜完毕！');
+                resolve('切好的菜');
+            }, 2000);
+        });
+        return p;
+    }
+
+    //烧水
+    function boil(){
+        console.log('开始烧水。');
+        var p = new Promise(function(resolve, reject){ //做一些异步操作
+            setTimeout(function(){
+                console.log('烧水完毕！');
+                resolve('烧好的水');
+            }, 1000);
+        });
+        return p;
+    }
+
+    Promise.race([cutUp(), boil()]).then((result) => {
+        console.log('准备工作完毕');
+        console.log(result);
+    })
+</pre>
+<script>
+    var demo_1 = function () {
+        new Promise((resolve, reject) => {
+            requestnFn('一', {
+                status: 200,
+                data: {
+                    id: 10
+                },
+                code: 1
+            }, resolve, reject)
+        }).then(res => {
+            console.log('第一次请求成功：')
+            console.log(res)
+            return new Promise((resolve, reject) => {
+                requestnFn('二', {
+                    status: 200,
+                    data: {
+                        id: 10,
+                        name: 'zwl',
+                        age: 20,
+                        gender: 'male'
+                    },
+                    code: 1
+                }, resolve, reject)
+            })
+        }).then(res => {
+            console.log('第二次请求成功：')
+            console.log(res)
+            return new Promise((resolve, reject) => {
+                requestnFn('三', {
+                    status: 200,
+                    data: {},
+                    code: 1
+                }, resolve, reject)
+            })
+        }).then(res => {
+            console.log('第三次请求，这是请求结果')
+            console.log(res)
+        }).catch(res => {
+            console.log('请求失败')
+            console.log(res)
+        })
+
+        /**
+         * 请求函数封装
+         * @param time
+         * @param res
+         * @param resolve
+         * @param reject
+         */
+        function requestnFn(time, res, resolve, reject) {
+            setTimeout(() => {
+                console.log('第' + time + '次请求')
+                var randomNum = Math.random() * 10
+                if(randomNum > 5) {
+                    resolve(res)
+                }else{
+                    reject({
+                        status: 200,
+                        data: {
+                            info: '参数不能为空'
+                        },
+                        code: 0
+                    })
+                }
+            }, 2000)
+        }
+    }
+
+    var demo_2 = function () {
+        //切菜
+        function cutUp(){
+            console.log('开始切菜。');
+            var p = new Promise(function(resolve, reject){        //做一些异步操作
+                setTimeout(function(){
+                    console.log('切菜完毕！');
+                    resolve('切好的菜');
+                }, 1000);
+            });
+            return p;
+        }
+
+        //烧水
+        function boil(){
+            console.log('开始烧水。');
+            var p = new Promise(function(resolve, reject){        //做一些异步操作
+                setTimeout(function(){
+                    console.log('烧水完毕！');
+                    resolve('烧好的水');
+                }, 1000);
+            });
+            return p;
+        }
+
+        Promise.all([cutUp(), boil()]).then((result) => {
+            console.log('准备工作完毕');
+            console.log(result);
+        })
+    }
+
+    var demo_3 = function () {
+        //切菜
+        function cutUp(){
+            console.log('开始切菜。');
+            var p = new Promise(function(resolve, reject){        //做一些异步操作
+                setTimeout(function(){
+                    console.log('切菜完毕！');
+                    resolve('切好的菜');
+                }, 2000);
+            });
+            return p;
+        }
+
+        //烧水
+        function boil(){
+            console.log('开始烧水。');
+            var p = new Promise(function(resolve, reject){        //做一些异步操作
+                setTimeout(function(){
+                    console.log('烧水完毕！');
+                    resolve('烧好的水');
+                }, 1000);
+            });
+            return p;
+        }
+
+        Promise.race([cutUp(), boil()]).then((result) => {
+            console.log('准备工作完毕');
+            console.log(result);
+        })
+    }
+
+    demo_3()
+
+</script>
+</body>
+</html>
