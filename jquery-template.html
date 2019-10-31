@@ -30,9 +30,11 @@
     </style>
 </head>
 <body>
-<h3>jQuery 模板渲染</h3>
-<div class="part"></div>
-<div class="box"></div>
+<div class="container">
+    <h3>jQuery 模板渲染</h3>
+    <div class="part"></div>
+    <div class="box"></div>
+</div>
 <!-- 模板 -->
 <script id="tmpl" type="text/x-handlebars-template">
     {{each data as value index }}
@@ -78,7 +80,7 @@
 <script type="text/javascript" src="assets/js/data-for-template.js"></script>
 <script>
     /**
-     * ps；
+     * PS；
      * 1、数据格式必须是对象，不能是数组，否则不报错也无效果，要显示哪个值在模板里就在大括号里写该值对应的key
      * 2、如果核心数据是数组，必须包装成对象且key必须用作each关键字后面变量名，否则无效
      *    如：key是dataA，循环写法必须是{{each dataA as value }}

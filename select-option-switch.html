@@ -1,0 +1,74 @@
+<!--
+// +----------------------------------------------------------------------
+// | select-option-switch 两个select选项互换
+// +----------------------------------------------------------------------
+// | Author: 470211273@qq.com
+// +----------------------------------------------------------------------
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>两个select选项互换</title>
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/select-option-switch.css">
+</head>
+<body>
+    <div class="container">
+        <div class="drop-page">
+            <p>两个select选项互换</p>
+            <select multiple="multiple" size="10" class="form-control inline-block" data-name="zxpc-origin">
+                <option value="1">首页-发单入口</option>
+                <option value="2">设计与报价发单入口</option>
+                <option value="3">智能报价</option>
+                <option value="4">装修吉日</option>
+                <option value="5">底部发单入口</option>
+            </select>
+            <div class="inline-block switch-arrow">
+                <p data-target="zxpc-target" class="switch-arrow-btn">--&gt;</p>
+                <p data-target="zxpc-origin" class="switch-arrow-btn">&lt;--</p>
+            </div>
+            <select multiple="multiple" size="10" class="form-control inline-block" data-name="zxpc-target">
+
+            </select>
+        </div>
+    </div>
+    <script type="text/javascript" src="assets/js/jquery1.11.3.min.js"></script>
+    <script>
+        $(function () {
+            /* 投放页面select切换 */
+            var $switchArrowBtn = $(".switch-arrow-btn");
+            $switchArrowBtn.on("click", function () {
+                var targetName = $(this).attr('data-target'),
+                    $parent = $(this).closest(".drop-page"),
+                    $pushTarget = $parent.find('select[data-name="' + targetName + '"]'), // 入栈对象
+                    $popTarget = null, // 出栈对象
+                    tempName = targetName.split('-');
+                if(tempName[1] == 'target'){
+                    $popTarget = $parent.find('select[data-name="' + tempName[0] + '-origin"]')
+                }else{
+                    $popTarget = $parent.find('select[data-name="' + tempName[0] + '-target"]')
+                }
+                if(!$popTarget.val()) {
+                    alert('请先选择一个选项')
+                    return
+                }
+                $popTarget.find("option:selected").each(function(index, item) {
+                    $pushTarget.append(item)
+                })
+                $popTarget.find("option:selected").remove()
+                var sortOption = $pushTarget.find('option').sort(function(a,b){  //进行排序
+                    var aText = $(a).val();
+                    var bText = $(b).val();
+                    if(aText > bText) return 1;
+                    if(aText < bText) return -1;
+                    return 0;
+                });
+                $pushTarget.empty(); //清空
+                $pushTarget.append(sortOption); //赋值
+            })
+        })
+    </script>
+</body>
+</html>

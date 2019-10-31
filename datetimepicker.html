@@ -1,0 +1,66 @@
+<!--
+// +----------------------------------------------------------------------
+// | datapicker
+// +----------------------------------------------------------------------
+// | Author: 470211273@qq.com
+// +----------------------------------------------------------------------
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>datetimepicker</title>
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/plugins/datetimepicker/datepicker.css">
+    <link rel="stylesheet" href="assets/plugins/datetimepicker/datetimepicker.css">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-2" style="text-align: center; line-height: 34px;">开始日期：</div>
+        <div class="col-md-4">
+            <input type="text" name="time_start" class="form-control datepicker" placeholder="选择日期" autocomplete="off" value="">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2" style="text-align: center; line-height: 34px;">结束日期：</div>
+        <div class="col-md-4">
+            <input type="text" name="time_end" class="form-control datepicker" placeholder="选择日期" autocomplete="off" value="">
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="assets/js/jquery1.11.3.min.js"></script>
+
+<script type="text/javascript" src="assets/plugins/datetimepicker/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript" src="assets/plugins/datetimepicker/bootstrap-datetimepicker.zh-CN.js"></script>
+<script>
+    /*初始化插件*/
+    $('.datepicker').datetimepicker({
+      format: 'yyyy-mm',  //  这两个参数一起使用可以保证只选到月份
+      startView: 3, //  这两个参数一起使用可以保证只选到月份
+      minView: 3,   // 这两个参数一起使用可以保证只选到月份
+      weekStart: 1,
+      todayHighlight: 1,
+      todayBtn: true,
+      autoclose: true,
+      language: 'zh-CN'
+    }).on("change", function () {
+        if (toTimeStamp($("input[name=time_start]").val()) > toTimeStamp($("input[name=time_end]").val())) {
+            alert("结束时间不得早于开始时间");
+            $('input[name="time_end"]').val("");
+        }
+    });
+    function toTimeStamp(time){
+        if(time!=undefined){
+            var date = time;
+            date = date.substring(0,19);
+            date = date.replace(/-/g,'/');
+            var timestamp = new Date(date).getTime();
+            return timestamp;
+        }
+    };
+</script>
+</body>
+</html>

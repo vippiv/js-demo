@@ -59,8 +59,21 @@ function checkPhoneNum(str){
 	if( !str ){
 		return;
 	}
-	var reg = new RegExp("^((13[0-9])|(14[5,7,8,9])|(15[0-3,5-9])|(17[0,1,3,5-8])|(18[0-9])|166|198|199|(147))\\d{8}$");
-	return reg.test(str);
+	var reg = new RegExp("^(13|14|15|16|17|18|19)[0-9]{9}$");
+    return reg.test(str);
+}
+
+/*
+ * 验证是否存在特殊字符
+ * @param val
+ * @returns {boolean}
+ */
+function checkSpecialSymbal(val) {
+    var reg = new RegExp("^[\u4e00-\u9fa5a-zA-Z]+$");
+    if (!reg.test(val)) {
+        alert("请输入正确的姓名，只支持中文和英文 ^_^!");
+        return;
+    }
 }
 
 /**
@@ -462,9 +475,14 @@ function setEndOfContenteditable(contentEditableElement){
  * @param name string
  * @param value string
  * @param maxAge string 单位分钟
+ * @param path string cookie路径，默认为当前路径
  */
-function setCookie( name , value , maxAge ){
-    document.cookie = name + "=" + value + ";max-age=" + (maxAge * 60);
+function setCookie( name , value , maxAge, path ){
+    if(path) {
+        document.cookie = name + "=" + value + ";max-age=" + (maxAge * 60)+ ";path=" + path;
+    }else{
+        document.cookie = name + "=" + value + ";max-age=" + (maxAge * 60);
+    }
 }
 
 /**
@@ -503,6 +521,59 @@ function removeCookie( name ){
 function GetQueryStringRegExp(name,url) {
     var reg = new RegExp("(^|\\?|&)" + name + "=([^&]*)(\\s|&|$)", "i");
     if ( reg.test(url) ) return decodeURIComponent( RegExp.$2.replace(/\+/g, " ") ) ; return "";
+}
+
+/**
+ * 判断是Android还是iOS
+ * @returns {string}
+ */
+function mobileSystem() {
+    var u = navigator.userAgent;
+    var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+    var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+    if(isAndroid){
+        return "Android"
+    }else if(isiOS){
+        return "iOS"
+    }else{
+        return ""
+    }
+}
+
+/**
+ * 根据系统类型更改input框的属性
+ */
+function fixInputType(ele) {
+    if( mobileSystem().toLowerCase() == "ios" ){
+        $(ele).attr("type","tel");
+    }
+}
+
+/**
+ * 判断是不是微信浏览器
+ * @type {boolean}
+ */
+var isWechat = function() {
+    var ua = navigator.userAgent.toLowerCase();
+    var isWeixin = ua.indexOf('micromessenger') != -1;
+    if (isWeixin) {
+        return true;
+    }else{
+        return false;
+    }
+}()
+
+/**
+ * 检测字符串是否同时包含数字，字母，下划线
+ * @param str
+ * @returns {boolean}
+ */
+function checkStr(str) {
+  if(!str) {
+    return
+  }
+  var reg = /(?=.*[A-Za-z])(?=.*[\d])(?=.*_)/;
+  return reg.test(str)
 }
 
 /**

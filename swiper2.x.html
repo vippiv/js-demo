@@ -1,0 +1,212 @@
+<!--
+// +----------------------------------------------------------------------
+// | swiper2.x
+// +----------------------------------------------------------------------
+// | Author: 470211273@qq.com
+// +----------------------------------------------------------------------
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>swiper插件 2.X</title>
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/swiper2.x.css">
+    <link rel="stylesheet" href="assets/plugins/swiper-2.7.6/idangerous.swiper.css">
+</head>
+<body>
+<div class="container">
+    <h2 style="font-size: 18px;">swiper 2.X案例：</h2>
+    <div class="swiper-container s1">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">Slide 1</div>
+            <div class="swiper-slide">Slide 2</div>
+            <div class="swiper-slide">Slide 3</div>
+            <div class="swiper-slide">Slide 4</div>
+            <div class="swiper-slide">Slide 5</div>
+        </div>
+        <!-- 如果需要分页器 -->
+        <div class="pagination"></div>
+        <!-- 左右方向箭 -->
+        <a class="arrow-left" href="#"></a>
+        <a class="arrow-right" href="#"></a>
+    </div>
+    <div class="carousel">
+        <div class="tab">
+            <span class="active">简欧</span>
+            <span>中式</span>
+            <span>日式</span>
+            <span>现代</span>
+        </div>
+        <div class="swiper-container s2">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <!--简欧-->
+                    <div class="swiper-container jo">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">简欧 slide1</div>
+                            <div class="swiper-slide">简欧 slide2</div>
+                            <div class="swiper-slide">简欧 slide3</div>
+                            <div class="swiper-slide">简欧 slide4</div>
+                        </div>
+                        <div class="pagination"></div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <!--中式-->
+                    <div class="swiper-container zs">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">中式 slide1</div>
+                            <div class="swiper-slide">中式 slide2</div>
+                            <div class="swiper-slide">中式 slide3</div>
+                            <div class="swiper-slide">中式 slide4</div>
+                        </div>
+                        <div class="pagination"></div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <!--日式-->
+                    <div class="swiper-container rs">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">日式 slide1</div>
+                            <div class="swiper-slide">日式 slide2</div>
+                            <div class="swiper-slide">日式 slide3</div>
+                            <div class="swiper-slide">日式 slide4</div>
+                        </div>
+                        <div class="pagination"></div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <!--现代-->
+                    <div class="swiper-container xd">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">现代 slide1</div>
+                            <div class="swiper-slide">现代 slide2</div>
+                            <div class="swiper-slide">现代 slide3</div>
+                            <div class="swiper-slide">现代 slide4</div>
+                        </div>
+                        <div class="pagination"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="assets/js/jquery1.11.3.min.js"></script>
+<script type="text/javascript" src="assets/plugins/swiper-2.7.6/idangerous.swiper.js"></script>
+<script>
+    $(function () {
+        var mySwiper = new Swiper('.s1',{
+            pagination: '.pagination',
+            loop:true,
+            grabCursor: true, // 控制鼠标形状
+            paginationClickable: true, // 启用分页指示器点击事件
+            mode: 'horizontal', // 索引位置需要在css中调整，值（horizontal/vertical）
+            autoplay : 1000,
+            autoplayDisableOnInteraction : false, // 用户操作swiper之后，是否禁止autoplay。默认为true：停止
+            onlyExternal: false, // 禁用鼠标拖拉
+            onSlideChangeStart: function(swiper){
+                //loop模式下 swiper.activeIndex = swiper.activeLoopIndex + 1，swiper.activeIndex最大值为轮播图数+1，swiper.activeLoopIndex最大值等于轮播图数
+                // console.log("activeIndex：" + swiper.activeIndex)
+                // console.log("activeLoopIndex：" + swiper.activeLoopIndex)
+                switchTab(swiper.activeIndex);
+            }
+        })
+        $('.arrow-left').on('click', function(e){
+            e.preventDefault()
+            mySwiper.swipePrev()
+        })
+        $('.arrow-right').on('click', function(e){
+            e.preventDefault()
+            mySwiper.swipeNext()
+        })
+        function switchTab(index) {
+            // console.log(index)
+        }
+    })
+
+</script>
+<script>
+    $(function () {
+        var $nav = $(".carousel > .tab > span")
+        var mySwiper = new Swiper('.s2',{
+            autoplay : 2000,
+            onlyExternal: true, // 禁用鼠标拖拉
+            // loop: true, // 轮播嵌套的时候必须去掉这个，否则最后一个轮播的嵌套轮播异常
+            onSlideChangeStart: function(swiper){
+                switchTab(swiper.activeLoopIndex);
+                // 下面这段代码用于解决loop属性不能使用的问题
+                if(swiper.activeLoopIndex == 3) {
+                    mySwiper.stopAutoplay();
+                    setTimeout(function () {
+                        $nav.eq(0).trigger("click")
+                        mySwiper.startAutoplay();
+                    }, 2000)
+
+                }
+            }
+        })
+        $nav.on("click",function(){
+            var index = $(this).index();
+            $nav.removeClass("active");
+            $(this).addClass('active');
+            mySwiper.swipeTo(index, 1000, false);
+        });
+
+        function switchTab(index) {
+            $nav.removeClass('active')
+            $nav.eq(index).addClass("active")
+        }
+    })
+</script>
+<script>
+    $(function () {
+        var mySwiper_jo = new Swiper('.jo',{
+            autoplay : 1000,
+            pagination: '.jo .pagination',
+            paginationClickable: true,
+            onlyExternal: false, // 禁用鼠标拖拉
+            loop: true,
+            onSlideChangeStart: function(swiper){
+                switchTab(swiper.activeLoopIndex);
+            }
+        })
+        var mySwiper_zs = new Swiper('.zs',{
+            autoplay : 1000,
+            pagination: '.zs .pagination',
+            paginationClickable: true,
+            onlyExternal: false, // 禁用鼠标拖拉
+            loop: true,
+            onSlideChangeStart: function(swiper){
+                switchTab(swiper.activeLoopIndex);
+            }
+        })
+        var mySwiper_rs = new Swiper('.rs',{
+            autoplay : 1000,
+            pagination: '.rs .pagination',
+            paginationClickable: true,
+            onlyExternal: false, // 禁用鼠标拖拉
+            loop: true,
+            onSlideChangeStart: function(swiper){
+                switchTab(swiper.activeLoopIndex);
+            }
+        })
+        var mySwiper_xd = new Swiper('.xd',{
+            autoplay : 1000,
+            pagination: '.xd .pagination',
+            paginationClickable: true,
+            onlyExternal: false, // 禁用鼠标拖拉
+            loop: true,
+            onSlideChangeStart: function(swiper){
+                switchTab(swiper.activeLoopIndex);
+            }
+        })
+        function switchTab(index) {
+            // console.log(index)
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!--
+// +----------------------------------------------------------------------
+// | swiper
+// +----------------------------------------------------------------------
+// | Author: 470211273@qq.com
+// +----------------------------------------------------------------------
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>swiper插件 3.X以上版本</title>
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/swiper-demo.css">
+    <link rel="stylesheet" href="assets/plugins/swiper-4.3.3/swiper.min.css">
+</head>
+<body>
+<div class="container">
+    <h1 style="font-size: 18px;">ps：</h1>
+    <p>swiper各版本区别请移步：<a href="https://www.swiper.com.cn/usage/index.html">https://www.swiper.com.cn/usage/index.html</a></p>
+    <p>pc端通常用swiper 2.X版本，主要考虑到要兼容IE8</p>
+    <p>移动端则可以用3.X以上版本</p>
+    <p>swiper 2.X，3.X，4.X语法有所不同，请务必对照官方文档书写</p>
+
+    <h2 style="font-size: 18px;">swiper 4.X案例：</h2>
+    <div class="swiper-container s1">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">Slide 1</div>
+            <div class="swiper-slide swiper-no-swiping">Slide 2</div>
+            <div class="swiper-slide"><span class="text">Slide 3</span></div>
+            <div class="swiper-slide">Slide 4</div>
+            <div class="swiper-slide">Slide 5</div>
+            <div class="swiper-slide swiper-no-swiping">Slide 6</div>
+            <div class="swiper-slide">Slide 7</div>
+            <div class="swiper-slide">Slide 8</div>
+            <div class="swiper-slide">Slide 9</div>
+            <div class="swiper-slide">Slide 10</div>
+        </div>
+        <!-- 如果需要分页器 -->
+        <div class="swiper-pagination"></div>
+        <!-- 如果需要导航按钮 -->
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+        <!-- 如果需要滚动条 -->
+        <div class="swiper-scrollbar"></div>
+    </div>
+</div>
+<script type="text/javascript" src="assets/plugins/swiper-4.3.3/swiper.min.js"></script>
+<script>
+    var swiper_1 = new Swiper('.s1', {
+        init: false, // 先实例化，等需要的时候再初始化
+        initialSlide :0, // 初始化时默认显示第几张，从0开始
+        pagination: {
+            el: '.swiper-pagination',
+            type: 'fraction', // 分页指示器，分页默认是圆点形式
+        },
+        speed:300, // 切换时长
+        autoplay: {
+            delay: 1000, // 切换频率
+            stopOnLastSlide: false,
+            disableOnInteraction: false, // 用户操作swiper之后，是否禁止autoplay。默认为true：停止。
+        },
+        noSwiping : true, // 可以在swiper-slide上增加swiper-no-swiping，禁止拖动
+        noSwipingSelector: '.text', // 在类text上无法拖动
+        direction: 'horizontal', // 垂直(vertical)切换，默认水平(horizontal)
+        paginationClickable: true,
+        // 如果需要前进后退按钮
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        // 如果需要滚动条
+        scrollbar: {
+            el: '.swiper-scrollbar',
+        },
+        on: {
+            slideChange: function () { // 也可以通过对象监听的方式调用
+                console.log(this.activeIndex);
+            },
+        },
+    });
+    swiper_1.on('slideChange', function () {
+        console.log("当前索引：" + this.activeIndex)
+    });
+    // 延迟3s再初始化
+    setTimeout(function () {
+        swiper_1.init()
+    }, 3000)
+</script>
+</body>
+</html>

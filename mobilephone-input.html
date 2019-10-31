@@ -1,0 +1,68 @@
+<!--
+// +----------------------------------------------------------------------
+// | mobilephone-input
+// +----------------------------------------------------------------------
+// | Author: 470211273@qq.com
+// +----------------------------------------------------------------------
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="applicable-device" content="mobile">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="full-screen" content="yes">
+    <meta name="browsermode" content="application">
+    <meta name="x5-orientation" content="portrait">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="x5-page-mode" content="app">
+    <title>兼容安卓和IOS平台手机号码输入框</title>
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 style="font-size: 18px;"><b>兼容安卓和IOS平台手机号码输入框</b></h1>
+        <div class="row">
+            <div class="col-xs-12">
+                <p>type="number"会在input框结尾出现上下箭头，UI上不适合</p>
+            </div>
+            <div class="col-xs-12">
+                <input type="text" maxlength="11" placeholder="请输入手机号" oninput="if(value.length>11)value=value.slice(0,11)" id="mobile" class="form-control">
+            </div>
+        </div>
+    </div>
+<script type="text/javascript" src="assets/js/jquery1.11.3.min.js"></script>
+<script>
+    /**
+     * 判断是Android还是iOS
+     * @returns {string}
+     */
+    function mobileSystem() {
+        var u = navigator.userAgent;
+        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+        if(isAndroid){
+            return "Android"
+        }else if(isiOS){
+            return "iOS"
+        }
+    }
+
+    /**
+     * 根据系统类型更改input框的属性
+     */
+    function fixInputType(ele) {
+        if( mobileSystem().toLowerCase() == "ios" ){
+            $(ele).attr("type","tel");
+        }
+    }
+
+    fixInputType($("#mobile"))
+</script>
+</body>
+</html>

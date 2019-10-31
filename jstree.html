@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jstree</title>
+    <link rel="stylesheet" href="assets/plugins/jstree/themes/default/style.css">
+    <script type="text/javascript" src="assets/js/jquery1.11.3.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/jstree/jstree.js"></script>
+</head>
+<body>
+    <div class="jstree" id="treeDemo"></div>
+    <script>
+        $('#treeDemo').jstree({    
+            'core': {                   
+                "animation" : 0,
+                "check_callback": true,
+                "themes" : {"stripes" : true },
+                'data': [
+                    {
+                        'id': 1,
+                        "text" : "根节点",
+                        "children" : [
+                            {
+                                'id': 2,
+                                "text" : "M端",
+                                'children': [{
+                                    'id': 4,
+                                    'text': '首页模块'
+                                }, {
+                                    'id': 5,
+                                    'text': '效果图模块'
+                                }, {
+                                    'id': 7,
+                                    'text': '攻略模块',
+                                    'children': [{
+                                        'id': 8,
+                                        'text': '家装列表页'
+                                    }, {
+                                        'id': 9,
+                                        'text': '公装列表页'
+                                    }, {
+                                        id: 10,
+                                        'text': '精品专题页'
+                                    }]
+                                }]
+                            },
+                            {
+                                id: 3,
+                                "text" : "PC端"
+                            },
+                            {
+                                id: 6,
+                                "text" : "APP"
+                            }
+                        ]
+                    }
+                ],              
+                'multuple': true
+            },
+            "plugins" : [
+                "checkbox", //复选
+                "contextmenu", //菜单
+                "dnd", //拖动
+                "search", //搜索
+                "sort", //排序
+                "types", //类型
+                'themes',
+                'change'
+            ],
+            "contextmenu": {
+                "items": {
+                    "create": null,
+                    "rename": null,
+                    "remove": null,
+                    "ccp": null,
+                    "add": {
+                        "label": "新增分类",
+                        "action": function (obj) {
+                            var inst = jQuery.jstree.reference(obj.reference);
+                            var clickedNode = inst.get_node(obj.reference);
+                            var newNode = inst.create_node(inst.get_node(obj.reference),'请输入分类名称',"after","","");
+                            inst.edit(newNode,newNode.val)
+                            // inst.hide_all(obj.reference,'');
+                            // inst.jstree('create');
+                        }
+                    },
+                    "rename":{
+                        "label": "修改分类",
+                        "action": function (obj) {
+                            var inst = jQuery.jstree.reference(obj.reference);
+                            var clickedNode = inst.get_node(obj.reference);
+                            inst.edit(obj.reference,clickedNode.val)
+                            // inst.rename_node(obj.reference,clickedNode.id);
+                        }
+                    },
+                    "delete": {
+                        "label": "删除分类",
+                        "action": function (obj) {
+                            var inst = jQuery.jstree.reference(obj.reference);
+                            var clickedNode = inst.get_node(obj.reference);
+                            inst.delete_node(obj.reference);
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+    <script>
+        $('#data').on('move_node.jstree',function(e,data) {    //拖拽移动    
+            var id = data.node.id,    
+                parentid = data.parent;     
+            if(parentid=='#'){      
+                parentid=0;      
+            }
+            position = data.position //相对于它本身前面有多少个节点位置.例如等于0，则它前面无节点,即它的下标位置就是0;   
+            var url='/adm/article/remove-to-tag';    
+            var data={       
+                '_token': $("#_token").val(),        
+                'id':id,       
+                'parentid':parentid,        
+                'position':position,       
+            }     
+            $.post(url,data,function(data) {}).jstree({   
+                'plugins': ['checkbox','types','themes','contextmenu','dnd','change'],    
+                'types': {
+                    'default': { 'icon': false}, // 删除默认图标
+                    'checkbox': true, //一个布尔值，指示是应保留还是删除节点的选定样式。默认为true。               
+                    'keep_selected_style': false, //一个布尔值，指示单击节点上的任何位置是否应该单击复选框。默认为true。
+                    'whole_node': false               
+                },     
+                'core': {     
+                    "animation": 0,     
+                    "check_callback": true,     
+                    "themes": { "stripes" : true},      
+                    'data': [],     
+                    'multuple':true 
+                },    
+                "contextmenu": {
+                    select_node: false,
+                    show_at_node: true,
+                    items: function(o, cb){ //因为这里我们之后需要定义多个项,所以通过对象的方式返回     
+                        var actions = {};//添加一个"新增"右键菜单      
+                        actions.create = {//这里的create其实阔以随意命名,关键是里面的 这里面的 action回调方法    
+                            "separator_before": false,//Create这一项在分割线之前    
+                            "separator_after": true,//Create这一项在分割线之后      
+                            "_disabled": false, //false表示create 这一项可以使用; true表示不能使用     
+                            "label": "新增",  //Create这一项的名称 可自定义    
+                            "action": function (data){  //点击Create这一项触发该方法,这理还是蛮有用的    
+                                var inst= $.jstree.reference(data.reference),    
+                                obj= inst.get_node(data.reference);//获得当前节点,可以拿到当前节点所有属性    
+                                var id=obj.id;     //新加节点,以下三行代码注释掉就不会添加节点    
+                                inst.create_node(obj, {}, "last", function(new_node) {    
+                                    setTimeout(function() {    
+                                        inst.edit(new_node);
+                                    },0);
+                                    //新加节点后触发 重命名方法,即 创建节点完成后可以立即重命名节点 
+                                    $('#'+id).bind("change",function(){  
+                                        var tag_name=$('#'+id).find('input').val();   
+                                        if(tag_name){    
+                                            var url='/adm/article/add-to-tag';   
+                                            var data={ 
+                                                '_token': $("#_token").val(),      
+                                                'parentid':id,
+                                                'tag_name':tag_name
+                                            }
+                                            $.post(url,data,function(data) {    
+                                                setTimeout('window.location.reload()',3000);   
+                                                if(data.success==false){        
+                                                    swal(data.msg)    
+                                                }
+                                            },'json');
+                                        }else {
+                                            swal('标签名不能为空!')      
+                                            setTimeout('window.location.reload()',3000);                                                                                 }                                   
+                                    })                               
+                                });                           
+                            }                       
+                        }; 
+                        //添加一个"重命名"右键菜单 
+                        actions.rename = { 
+                            "separator_before": false, 
+                            "separator_after": false, 
+                            "_disabled": false,
+                            //(this.check("rename_node",data.reference, this.get_parent(data.reference), "")),
+                            "label": "重命名",  
+                            "action": function(data) { 
+                                var inst= $.jstree.reference(data.reference), 
+                                    obj = inst.get_node(data.reference);  
+                                inst.edit(obj);  
+                                var id=obj.id;   
+                                //父节点id  
+                                var parentid=obj.parent;  
+                                if(parentid=='#'){   
+                                    parentid=0;   
+                                }    
+                                $('.jstree-rename-input').bind("change",function(){   
+                                    var old_name = obj.original.text;   
+                                    var new_name = $('#'+id).find('input').val();   
+                                    if(new_name){
+                                        if((old_name!=new_name)){   
+                                            var url='/adm/article/rename-to-tag';  
+                                            var data={
+                                                '_token': $("#_token").val(),
+                                                'id':id,
+                                                'tag_name':new_name,      
+                                                'parentid':parentid,
+                                            } 
+                                            $.post(url,data,function(data) { 
+                                                if(data.success==false){ 
+                                                    swal(data.msg)
+                                                    setTimeout('window.location.reload()',3000);       
+                                                }   
+                                            },'json');    
+                                        } 
+                                    }else {        
+                                        swal('标签名不能为空!')                                       
+                                        setTimeout('window.location.reload()',3000);                                                                                 }                               
+                                });                           
+                            }                       
+                        } 
+                        //添加一个"删除"右键菜单  
+                        actions.delete= {     
+                            "separator_before": false,     
+                            "icon": false,    
+                            "separator_after": false,       
+                            "_disabled": false,
+                            //(this.check("delete_node",data.reference, this.get_parent(data.reference), "")),     
+                            "label": "删除",      
+                            "action": function(data) {      
+                                var inst= $.jstree.reference(data.reference),      
+                                    obj= inst.get_node(data.reference);      
+                                //获取所有顶级选定节点的数组（忽略所选节点的子节点）       
+                                var selIdArr=inst.get_top_selected();      
+                                if(confirm('确定要删除选中的标签吗?')) {      
+                                    var url = '/adm/article/del-to-tag';      
+                                    var data = {       
+                                        '_token': $("#_token").val(),         
+                                        'id':selIdArr,         
+                                    }       
+                                    $.post(url,data,function(data) {        
+                                        if(data.success){       
+                                            if(inst.is_selected(obj)){       
+                                                inst.delete_node(inst.get_selected());       
+                                            } else{      
+                                                inst.delete_node(obj);       
+                                            }        
+                                        }else{        
+                                            swal(data.msg)        
+                                            setTimeout('window.location.reload()',3000);                                                                                 }                                   
+                                    },'json');                               
+                                }                           
+                            }                       
+                        };                       
+                        return actions;//返回右键菜单项                   
+                    }               
+                }
+            });
+        })
+    </script>
+</body>
+</html>
