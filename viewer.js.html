@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>viewer.js</title>
+	<link rel="stylesheet" href="assets/css/reset.css">
+	<link rel="stylesheet" href="assets/css/viewer.min.css">
+	<style>
+		.mask{ width: 900px; height: 900px; position: fixed; left: 0; right: 0; top: 0; bottom: 0; margin: auto; background-color: rgba(0,0,0,0.5); z-index: 1; display: none; }
+		.docs-pictures{ width: 600px; height: 600px; position: absolute; left: 0; right: 0; top: 0; bottom: 0; margin: auto; }
+		.docs-pictures>li{ width: 200px; height: 200px; float: left; }
+		.docs-pictures>li>img{width: 100%; height: 100%;}
+		.btn-area{ position: fixed; left: 10px; top: 10px;z-index: 99; }
+		button{padding:5px 10px; }
+	</style>
+</head>
+<body>
+	<div class="btn-area">
+		<button id="showAction">显示</button>
+		<button id="hiddenAction">隐藏</button>
+	</div>
+	<div class="mask">
+		<ul class="docs-pictures clearfix"></ul>
+	</div>
+	<script src="assets/js/jquery1.11.3.min.js"></script>
+	<script src="assets/js/viewer-jquery.min.js"></script>
+	<script>
+		var htmlStr = `<li><img data-original="https://fengyuanchen.github.io/viewerjs/images/tibet-1.jpg" src="https://fengyuanchen.github.io/viewerjs/images/thumbnails/tibet-1.jpg" alt="Cuo Na Lake"></li>
+			<li><img data-original="https://fengyuanchen.github.io/viewerjs/images/tibet-2.jpg" src="https://fengyuanchen.github.io/viewerjs/images/thumbnails/tibet-2.jpg" alt="Tibetan Plateau"></li>
+			<li><img data-original="https://fengyuanchen.github.io/viewerjs/images/tibet-3.jpg" src="https://fengyuanchen.github.io/viewerjs/images/thumbnails/tibet-3.jpg" alt="Jokhang Temple"></li>
+			<li><img data-original="https://fengyuanchen.github.io/viewerjs/images/tibet-4.jpg" src="https://fengyuanchen.github.io/viewerjs/images/thumbnails/tibet-4.jpg" alt="Potala Palace 1"></li>
+			<li><img data-original="https://fengyuanchen.github.io/viewerjs/images/tibet-5.jpg" src="https://fengyuanchen.github.io/viewerjs/images/thumbnails/tibet-5.jpg" alt="Potala Palace 2"></li>
+			<li><img data-original="https://fengyuanchen.github.io/viewerjs/images/tibet-6.jpg" src="https://fengyuanchen.github.io/viewerjs/images/thumbnails/tibet-6.jpg" alt="Potala Palace 3"></li>
+			<li><img data-original="https://fengyuanchen.github.io/viewerjs/images/tibet-7.jpg" src="https://fengyuanchen.github.io/viewerjs/images/thumbnails/tibet-7.jpg" alt="Lhasa River"></li>
+			<li><img data-original="https://fengyuanchen.github.io/viewerjs/images/tibet-8.jpg" src="https://fengyuanchen.github.io/viewerjs/images/thumbnails/tibet-8.jpg" alt="Namtso 1"></li>
+			<li><img data-original="https://fengyuanchen.github.io/viewerjs/images/tibet-9.jpg" src="https://fengyuanchen.github.io/viewerjs/images/thumbnails/tibet-9.jpg" alt="Namtso 2"></li>`
+		
+		$('#showAction').on('click', function() {
+			$('.docs-pictures').html(htmlStr)
+			$('.mask').fadeIn(0)
+			$('.docs-pictures').viewer({
+				url: 'data-original'
+			})
+		})
+		$('#hiddenAction').on('click', function() {
+			$('.docs-pictures').html('')
+			$('.docs-pictures').viewer('destroy')
+			$('.mask').fadeOut(0)
+		})
+	</script>
+</body>
+</html>
