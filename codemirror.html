@@ -1,0 +1,26 @@
+<!--
+// +----------------------------------------------------------------------
+// | codemirror
+// +----------------------------------------------------------------------
+// | Author: 470211273@qq.com
+// +----------------------------------------------------------------------
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>在线文档编辑</title>
+    <link rel="stylesheet" href="assets/plugins/codemirror/codemirror.css">
+	<script src="assets/plugins/codemirror/codemirror.js"></script>
+</head>
+
+<body>
+	<textarea class="form-control" id="myTextarea" name="code"></textarea>
+<script>
+	var myTextarea = document.getElementById('myTextarea')
+	var editor = CodeMirror.fromTextArea(myTextarea, {
+		lineNumbers: true
+	});
+</script>
+</body>
+</html>

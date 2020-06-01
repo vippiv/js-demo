@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Table</title>
+    <script src="assets/plugins/zrender.min.js"></script>
+    <style>
+        #main {
+            height: 600px;
+            width: 800px;
+        }
+    </style>
+</head>
+<body>
+<div id="main"></div>
+<img src="" id="main_img">
+<script src="assets/js/DrawUtil.js"></script>
+<script>
+    var zr = zrender.init(document.getElementById('main'))
+    const [height, width] = [15, 15]
+    var tableGroup = new zrender.Group()
+    for (let i = 0; i <= 30; i++) {
+        var line1 = new zrender.Line({
+            shape: {
+                x1: 0,
+                y1: height * i,
+                x2: width * 30,
+                y2: height * i,
+            }
+        })
+        var line2 = new zrender.Line({
+            shape: {
+                x1: width * i,
+                y1: 0,
+                x2: width * i,
+                y2: height * 30,
+            }
+        })
+        tableGroup.add(line1)
+        tableGroup.add(line2)
+    }
+    tableGroup.attr('position', [10, 10])
+    zr.add(tableGroup)
+
+    DrawUtil.initHoverText(zr)
+    zr.add(DrawUtil.drawText('你好，在干嘛呐？', 30, 30))
+    zr.add(DrawUtil.drawCircle({x: 50, y: 50, txt: '哈哈'}, '#FAD'))
+    zr.add(DrawUtil.drawHollowCircle({x: 100, y: 100, txt: '空心圆'}, '#DAF'))
+    zr.add(DrawUtil.drawIsogon({x: 200, y: 200, txt: 'jack'}, '#ADF'))
+
+    // setTimeout(toImg, 1000)
+
+    function toImg() {
+        console.log('to img')
+        var canvas = document.querySelector('#main canvas')
+        if (canvas) {
+            var img = canvas.toDataURL("image/png")
+            document.querySelector('#main_img').src = img
+        }
+    }
+</script>
+</body>
+</html>
