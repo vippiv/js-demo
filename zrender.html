@@ -44,7 +44,13 @@
 
     DrawUtil.initHoverText(zr)
     zr.add(DrawUtil.drawText('你好，在干嘛呐？', 30, 30))
-    zr.add(DrawUtil.drawCircle({x: 50, y: 50, txt: '哈哈'}, '#FAD'))
+    zr.add(DrawUtil.drawCircle({x: 50, y: 50, txt: '第一个点'}, '#FAD'))
+    zr.add(DrawUtil.drawCircle({x: 80, y: 80, txt: '第二个点'}, '#FAD'))
+    zr.add(DrawUtil.drawLine({x1: 50, y1: 50, x2: 80, y2: 80}, {
+								stroke: 'green',
+								lineWidth: 2,
+								lineDash: [2, 2]
+							})) 
     zr.add(DrawUtil.drawHollowCircle({x: 100, y: 100, txt: '空心圆'}, '#DAF'))
     zr.add(DrawUtil.drawIsogon({x: 200, y: 200, txt: 'jack'}, '#ADF'))
 

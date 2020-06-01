@@ -218,6 +218,21 @@ var DrawUtil = {
 
         return group
     },
+    drawLine (position, style) {
+        console.log(style)
+        var group = new zrender.Group()
+        var line = new zrender.Line({
+            shape: {
+                x1: position.x1,
+                y1: position.y1,
+                x2: position.x2,
+                y2: position.y2,
+            },
+            style: style
+        })
+        group.add(line)
+        return group
+    },
     // 绘制圆圈中有加号的圆
     drawAddCircle (Obj, Color) {
         var group = new zrender.Group()
