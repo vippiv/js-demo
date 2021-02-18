@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>generator</title>
+</head>
+<body>
+	<script>
+		function draw(count) { //抽奖模拟
+			setTimeout(() => {
+				console.log(`还剩余${count}次机会！`);
+			}, 1000);
+		}
+
+		function* generatorDraw(count) { // 生成generator函数
+			while (count > 0) {
+				count--;
+				yield draw(count);
+			}
+		}
+
+		let beginDraw = generatorDraw(3); // 这个3一般是从服务端获取 开始调用；
+
+		const btn = document.createElement('button');
+		btn.innerText = '抽奖';
+		btn.addEventListener('click', function () {
+			beginDraw.next();
+		})
+		document.body.appendChild(btn);
+	</script>
+</body>
+</html>
